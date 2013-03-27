@@ -1,0 +1,5 @@
+<%= javascript_include_tag 'simplify_issues_new', :plugin => 'redmine_simple' %>
+<p data-simplify="<%= User.current.pref.simplify? %>">
+  <label for="simplify"><%= l(:text_simplify) %></label>
+  <%= check_box_tag 'simplify', User.current.pref.simplify, User.current.pref.simplify? %>
+</p>

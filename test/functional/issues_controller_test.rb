@@ -23,12 +23,13 @@ class IssuesControllerTest < ActionController::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
     @user = User.find(2)
-    @project = @issue.project
+    @project = Project.find(1)
     User.current = @user
     @request.session[:user_id] = 2
   end
 
   def test_simple_new_issue
-
+    get :new, :project_id => @project.id
+    assert_response :success
   end
 end
