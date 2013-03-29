@@ -1,0 +1,16 @@
+.icon-arrow-in {
+  background-image: url(../images/arrow_in.png);
+}
+
+.icon-arrow-out {
+  background-image: url(../images/arrow_out.png);
+}
+
+.simplify-on, .simplify-off {
+  display: none;
+  margin-left: 20pt;
+}
+
+.simplify-on.active, .simplify-off.active {
+  display: inline;
+}

@@ -1,3 +1,5 @@
 en:
   field_simplify: 'Simplify interface'
-  text_simplify: 'Use simple interface. You can set the default behaviour in your account settings.'
+  text_simplify_on: 'Show simple interface. You can set the default behaviour in your account settings.'
+  text_simplify_off: 'Show full interface.'
+

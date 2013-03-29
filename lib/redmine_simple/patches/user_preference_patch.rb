@@ -2,10 +2,6 @@ module RedmineSimple::Patches
   module UserPreferencePatch
     extend ActiveSupport::Concern
 
-    included do
-      #attr_accessible 'simplify'
-    end
-
     def simplify
       self[:simplify]
     end

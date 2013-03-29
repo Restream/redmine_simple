@@ -32,4 +32,10 @@ class IssuesControllerTest < ActionController::TestCase
     get :new, :project_id => @project.id
     assert_response :success
   end
+
+  def test_show_simplify_on
+    get :new, :project_id => @project.id
+    assert_response :success
+
+  end
 end

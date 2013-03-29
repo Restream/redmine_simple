@@ -1,5 +1,3 @@
+<%= stylesheet_link_tag 'redmine_simple', :plugin => 'redmine_simple' %>
 <%= javascript_include_tag 'simplify_issues_new', :plugin => 'redmine_simple' %>
-<p data-simplify="<%= User.current.pref.simplify? %>">
-  <label for="simplify"><%= l(:text_simplify) %></label>
-  <%= check_box_tag 'simplify', User.current.pref.simplify, User.current.pref.simplify? %>
-</p>
+<%= javascript_include_tag 'simplify_assignee', :plugin => 'redmine_simple' %>

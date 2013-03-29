@@ -1,43 +1,54 @@
+// Simplify Issue New form
+
 $(document).ready(function() {
 
-  var simplifyIssueNew = function() {
-    // Hide all stuff except an attributes
-    $('form#issue-form.new_issue div.box.tabular').children().not('#all_attributes').hide();
-
-    // Hide top attributes
-    var except = [
-      $('#issue_subject').parents('p:first')[0],
-      $('#issue_description').parents('p:first')[0],
-      $('#attributes')[0]
-    ];
-
-    $('#all_attributes').children().not(except).hide();
-
-    // Hide other attributes
-    except = [
-      $('#issue_assigned_to_id').parents('p:first')[0]
-    ];
-
-    $('#attributes p').not(except).hide();
+  var simplifyActive = function() {
+    return $('.simplify-off').hasClass('active');
   };
 
-  var restoreIssueNew = function() {
-    $('form#issue-form.new_issue div.box.tabular').children().show();
-    $('#all_attributes').children().show();
-    $('#attributes p').show();
+  var getNotSimpleElements = function() {
+    var el = $('form#issue-form.new_issue div.box.tabular').children().not('#all_attributes');
+
+    el = el
+      .add($('#all_attributes').children()
+        .not($('#issue_subject').parents('p:first'))
+        .not($('#issue_description').parents('p:first'))
+        .not($('#attributes')))
+
+      .add($('#attributes p')
+        .not($('#issue_assigned_to_id').parents('p:first')))
+
+      .add($('#issue_description_and_toolbar').children()
+        .not('.jstEditor'))
+
+      .add($('.jstEditor').children()
+        .not('#issue_description'));
+
+    return el;
   };
 
-  var updateIssueNewFields = function() {
-    var simplify = $('input#simplify')[0].checked;
-
-    if (simplify) {
-      simplifyIssueNew();
+  var updateIssueNewForm = function() {
+    if (simplifyActive()) {
+      getNotSimpleElements().hide();
     } else {
-      restoreIssueNew();
+      getNotSimpleElements().show();
     }
   };
 
-  $('input#simplify').on('click', updateIssueNewFields);
+  var toggleSimplify = function() {
+    if (simplifyActive()) {
+      $('.simplify-off').removeClass('active');
+      $('.simplify-on').addClass('active');
+    } else {
+      $('.simplify-on').removeClass('active');
+      $('.simplify-off').addClass('active');
+    };
+    updateIssueNewForm();
+  };
 
-  updateIssueNewFields();
+  $('.simplify-on,.simplify-off').on('click', toggleSimplify);
+
+  updateIssueNewForm();
+  // wait for other plugins add some stuff to form
+  setTimeout(updateIssueNewForm, 50);
 });
