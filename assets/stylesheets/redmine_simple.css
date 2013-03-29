@@ -14,3 +14,7 @@
 .simplify-on.active, .simplify-off.active {
   display: inline;
 }
+
+#issue_assigned_to_id_ac {
+  width: 60%;
+}
