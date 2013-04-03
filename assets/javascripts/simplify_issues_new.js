@@ -52,3 +52,11 @@ $(document).ready(function() {
   // wait for other plugins add some stuff to form
   setTimeout(updateIssueNewForm, 50);
 });
+
+function updateSimpleIssueFrom(url, simplify) {
+  $.ajax({
+    url: url,
+    type: 'post',
+    data: $('#issue-form').serialize()
+  });
+}

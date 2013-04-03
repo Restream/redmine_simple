@@ -11,7 +11,11 @@ module RedmineSimple::Patches
     def link_to_simplify_off(active = true)
       link_class = 'simplify-off icon icon-arrow-out'
       link_class += ' active' if active
-      link_to l(:text_simplify_off), '#', { :class => link_class }
+      link_to l(:text_simplify_off),
+              project_issue_form_path(@project,
+                                      :id => @issue,
+                                      :simplify => 'off'),
+              { :class => link_class }
     end
 
   end

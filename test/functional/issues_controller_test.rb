@@ -36,6 +36,5 @@ class IssuesControllerTest < ActionController::TestCase
   def test_show_simplify_on
     get :new, :project_id => @project.id
     assert_response :success
-
   end
 end
