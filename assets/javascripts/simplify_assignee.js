@@ -23,7 +23,20 @@ function simplifyAssigneeField(url) {
           select: function(event, ui) {
             $('#issue_assigned_to_id_ac').val(ui.item.label);
             $('#issue_assigned_to_id').val(ui.item.value);
+            $(this).data('closing', true);
             return false;
+          },
+          close: function()
+          {
+            // avoid double-pop-up issue
+            setTimeout(function() {
+              $('#issue_assigned_to_id_ac').data('closing', false);
+            }, 300);
+          }
+        })
+        .bind('click', function() {
+          if (!$(this).data('closing')) {
+            $(this).autocomplete("search");
           }
         });
   });

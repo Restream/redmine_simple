@@ -1,0 +1,2 @@
+<%= javascript_include_tag 'simplify_assignee', :plugin => 'redmine_simple' %>
+<%= javascript_tag "simplifyAssigneeField('#{escape_javascript autocomplete_project_assignees_path(@project)}')" %>
