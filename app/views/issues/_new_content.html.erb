@@ -1,0 +1,7 @@
+<% if RedmineSimple.on? %>
+  <%= render :partial => 'simple/issues/new' %>
+<% else %>
+  <%= render :template => 'issues/new' %>
+<% end %>
+
+<%= javascript_tag "simplifyAssigneeField('#{escape_javascript autocomplete_project_assignees_path(@project)}')" %>

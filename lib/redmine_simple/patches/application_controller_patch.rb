@@ -1,3 +1,5 @@
+require_dependency 'application_controller'
+
 module RedmineSimple::Patches
   module ApplicationControllerPatch
     extend ActiveSupport::Concern

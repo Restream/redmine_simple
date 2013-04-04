@@ -1,3 +1,5 @@
+require_dependency 'user_preference'
+
 module RedmineSimple::Patches
   module UserPreferencePatch
     extend ActiveSupport::Concern

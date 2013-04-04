@@ -2,8 +2,10 @@
 function simplifyAssigneeField(url) {
   $(document).ready(function() {
 
-    $('#issue_assigned_to_id').hide()
-        .after('<input id="issue_assigned_to_id_ac" size="60">');
+    if ($('#issue_assigned_to_id_ac').length < 1) {
+      $('#issue_assigned_to_id').hide()
+          .after('<input id="issue_assigned_to_id_ac" size="60">');
+    }
 
     $('#issue_assigned_to_id_ac')
         .val($('#issue_assigned_to_id option[selected]').text())

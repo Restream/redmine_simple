@@ -7,14 +7,33 @@
 }
 
 .simplify-on, .simplify-off {
-  display: none;
-  margin-left: 20pt;
+  float: right;
 }
 
-.simplify-on.active, .simplify-off.active {
-  display: inline;
+.simple-box input {
+  width: 99%;
 }
 
-#issue_assigned_to_id_ac {
-  width: 60%;
+.simple-box textarea {
+  width: 99%;
+  min-width: 99%;
+  max-width: 99%;
 }
+
+.tabular .no-label {
+  margin-left: -180px;
+  padding-right: 180px;
+}
+
+.simple-box {
+  padding:6px;
+  margin-bottom: 10px;
+  background-color:#f6f6f6;
+  color:#505050;
+  line-height:1.5em;
+  border: 1px solid #e4e4e4;
+}
+
+.simple-buttons {
+}
+

@@ -7,6 +7,7 @@ class PatchedIssuesHelperTest < ActionView::TestCase
   def setup
     super
     set_language_if_valid('en')
+    @project = Project.find(1)
   end
 
   def test_link_to_simplify_on

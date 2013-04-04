@@ -3,7 +3,6 @@
   <% if @issue.safe_attribute? 'subject' %>
     <p>
       <%= f.text_field :subject,
-                       :size => 80,
                        :maxlength => 255,
                        :required => true %>
     </p>
@@ -11,9 +10,9 @@
 
   <% if @issue.safe_attribute? 'assigned_to_id' %>
     <p>
-      <%= text_field_tag :assigned_to_id_ac,
-                         :required => @issue.required_attribute?('assigned_to_id'),
-                         :size => 80 %>
+      <%= f.label_for_field :assigned_to_id, :required => @issue.required_attribute?('assigned_to_id') %>
+      <%= text_field_tag :issue_assigned_to_id_ac, '',
+                         :required => @issue.required_attribute?('assigned_to_id') %>
       <%= f.hidden_field :assigned_to_id,
                          :value => @issue.assigned_to %>
     </p>
@@ -22,9 +21,11 @@
   <% if @issue.safe_attribute? 'description' %>
     <p>
       <%= f.text_area :description,
-                      :cols => 60,
+                      :no_label => true,
+                      :cols => 80,
                       :rows => (@issue.description.blank? ? 10 : [[10, @issue.description.length / 50].max, 100].min),
-                      :accesskey => accesskey(:edit) %>
+                      :accesskey => accesskey(:edit),
+                      :class => 'no-label' %>
     </p>
   <% end %>
 

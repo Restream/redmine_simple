@@ -2,7 +2,7 @@
                       :html => {:id => 'issue-form', :multipart => true} do |f| %>
   <%= error_messages_for 'issue' %>
   <%= hidden_field_tag 'copy_from', params[:copy_from] if params[:copy_from] %>
-  <div class="box tabular">
+  <div class="simple-box tabular">
     <div id="all_attributes">
       <%= render 'simple/issues/form', {:f => f} %>
     </div>
@@ -22,14 +22,10 @@
 
   </div>
 
-  <%= link_to_simplify_off %>
-
-  <%= javascript_tag "$('a.simplify-off').click('#{escape_javascript \
-    project_issue_form_path(@project,
-                            :id => @issue,
-                            :simplify => 'off')}', updateIssueFrom);" %>
-
-  <%= submit_tag l(:button_create) %>
+  <div class="simple-buttons">
+    <%= link_to_simplify_off %>
+    <%= submit_tag l(:button_create) %>
+  </div>
 
   <%= javascript_tag "$('#issue_subject').focus();" %>
 <% end %>
@@ -37,3 +33,4 @@
 <% content_for :header_tags do %>
   <%= robot_exclusion_tag %>
 <% end %>
+

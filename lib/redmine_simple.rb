@@ -6,22 +6,6 @@ class RedmineSimple
     define_singleton_method(meth.to_sym) { |*args| instance.send meth.to_sym, *args  }
   end
 
-  #class << self
-  #
-  #
-  #  def on?(*args)
-  #    instance.on?(*args)
-  #  end
-  #
-  #  def enable
-  #    instance.enable
-  #  end
-  #
-  #  def disable
-  #    instance.disable
-  #  end
-  #end
-
   def on?(user = User.current)
     @direct_switch.nil? ? user.pref.simplify? : @direct_switch
   end
@@ -43,6 +27,7 @@ end
 require 'redmine_simple/hooks/view_hooks'
 
 #patches
-require 'redmine_simple/patches/application_controller_patch'
 require 'redmine_simple/patches/issues_helper_patch'
 require 'redmine_simple/patches/user_preference_patch'
+require 'redmine_simple/patches/application_controller_patch'
+require 'redmine_simple/patches/issues_controller_patch'

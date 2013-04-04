@@ -1,0 +1,16 @@
+$('#issue-new-content').html('<%= escape_javascript(render :partial => 'new_content') %>');
+
+<% if User.current.allowed_to?(:log_time, @issue.project) %>
+$('#log_time').show();
+<% else %>
+$('#log_time').hide();
+<% end %>
+
+simplifyAssigneeField('<%= escape_javascript autocomplete_project_assignees_path(@project) %>');
+
+<% simplify = RedmineSimple.on? ? 'off' : 'on' %>
+$('a.simplify-<%= simplify %>').click(function() {
+  updateIssueFrom('<%= escape_javascript(project_issue_form_path(
+      @project, :id => @issue, :simplify => simplify, :format => 'js'))%>');
+  return false;
+});
