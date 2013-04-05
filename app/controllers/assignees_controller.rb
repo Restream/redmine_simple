@@ -20,11 +20,16 @@ class AssigneesController < ApplicationController
     users = users.uniq.sort
     return users if q.blank?
 
-    q = $1 if q =~ /#{l(:label_group)}:\s(.+)/i
+    # Find Group with label
+    q = $1 if q =~ /\A#{l(:label_group)}:\s(.+)\z/i
+
+    # Take only one space between first name and lastname
+    q.sub! /\s{2,}/, ' '
+
     q_users_ids = User.like(q).pluck(:id)
     users.find_all do |u|
       if u.is_a?(Group)
-        u.name.downcase.include?(q)
+        u.name =~ /#{q}/i
       else
         q_users_ids.include?(u.id)
       end

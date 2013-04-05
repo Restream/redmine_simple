@@ -9,10 +9,7 @@ module RedmineSimple::Patches
     end
 
     def new_with_simple
-      respond_to do |format|
-        format.html { render :action => 'new_ext', :layout => !request.xhr? }
-        format.js { render :partial => 'update_new_content' }
-      end
+      render :action => 'new_ext'
     end
 
   end

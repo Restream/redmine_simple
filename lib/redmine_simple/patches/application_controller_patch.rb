@@ -11,13 +11,19 @@ module RedmineSimple::Patches
     protected
 
     def detect_simplify
-      prm = params.delete('simplify')
-      if prm.nil?
+      update_session_simplify_from_params
+      val = session[:simplify]
+      if val.nil?
         RedmineSimple.depend_on_user
       else
-        prm == 'on' ? RedmineSimple.enable : RedmineSimple.disable
+        val == 'on' ? RedmineSimple.enable : RedmineSimple.disable
       end
       true
+    end
+
+    def update_session_simplify_from_params
+      prm = params.delete('simplify')
+      session[:simplify] = prm unless prm.nil?
     end
 
   end

@@ -5,22 +5,22 @@ module RedmineSimple::Patches
     extend ActiveSupport::Concern
 
     def link_to_simplify_on
-      (link_to_simplify_link('on') + link_to_simplify_js('on')).html_safe
+      link_to_simplify_link('on')
     end
 
     def link_to_simplify_off
-      (link_to_simplify_link('off') + link_to_simplify_js('off')).html_safe
+      link_to_simplify_link('off')
     end
 
     def link_to_simplify_link(simplify)
+      raise ArgumentError('allowed only on|off values') unless simplify =~ /^on|off$/
       link_class = "simplify-#{simplify}"
-      link_to(l("text_simplify_#{simplify}"), '#', { :class => link_class })
-    end
-
-    def link_to_simplify_js(simplify)
-      javascript_tag("$('a.simplify-#{simplify}').click(function() { updateIssueFrom('#{escape_javascript(
-          project_issue_form_path(@project, :id => @issue, :simplify => simplify, :format => 'js')
-          )}'); return false;});")
+      link_to l("text_simplify_#{simplify}"),
+              project_issue_form_path(
+                  @project,
+                  :id => @issue,
+                  :simplify => simplify),
+              { :class => link_class }
     end
   end
 end

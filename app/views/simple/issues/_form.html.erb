@@ -13,8 +13,6 @@
       <%= f.label_for_field :assigned_to_id, :required => @issue.required_attribute?('assigned_to_id') %>
       <%= text_field_tag :issue_assigned_to_id_ac, '',
                          :required => @issue.required_attribute?('assigned_to_id') %>
-      <%= f.hidden_field :assigned_to_id,
-                         :value => @issue.assigned_to %>
     </p>
   <% end %>
 
@@ -28,5 +26,19 @@
                       :class => 'no-label' %>
     </p>
   <% end %>
+
+  <!-- hidden attributes -->
+  <div id="hidden-attributes" style="display: none;">
+    <%= f.select :assigned_to_id,
+                 principals_options_for_select(@issue.assignable_users, @issue.assigned_to),
+                 :include_blank => true %>
+    <% hidden_fields = %w{is_private project_id tracker_id status_id priority_id category_id fixed_version_id parent_issue_id start_date due_date estimated_hours done_ratio} %>
+    <% hidden_fields.each do |field| %>
+      <%= f.hidden_field field if @issue.safe_attribute? field %>
+    <% end %>
+    <% if @issue.safe_attribute? 'custom_field_values' %>
+      <%= render :partial => 'issues/form_custom_fields' %>
+    <% end %>
+  </div>
 
 <% end %>

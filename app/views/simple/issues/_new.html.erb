@@ -7,18 +7,24 @@
       <%= render 'simple/issues/form', {:f => f} %>
     </div>
 
-    <% if @copy_from && @copy_from.attachments.any? %>
-      <p>
-        <label for="copy_attachments"><%= l(:label_copy_attachments) %></label>
-        <%= check_box_tag 'copy_attachments', '1', @copy_attachments %>
-      </p>
-    <% end %>
-    <% if @copy_from && !@copy_from.leaf? %>
-      <p>
-        <label for="copy_subtasks"><%= l(:label_copy_subtasks) %></label>
-        <%= check_box_tag 'copy_subtasks', '1', @copy_subtasks %>
-      </p>
-    <% end %>
+    <div style="display: none;">
+      <% if @copy_from && @copy_from.attachments.any? %>
+        <p>
+          <label for="copy_attachments"><%= l(:label_copy_attachments) %></label>
+          <%= check_box_tag 'copy_attachments', '1', @copy_attachments %>
+        </p>
+      <% end %>
+      <% if @copy_from && !@copy_from.leaf? %>
+        <p>
+          <label for="copy_subtasks"><%= l(:label_copy_subtasks) %></label>
+          <%= check_box_tag 'copy_subtasks', '1', @copy_subtasks %>
+        </p>
+      <% end %>
+
+      <% if @issue.safe_attribute? 'watcher_user_ids' -%>
+        <%= watchers_checkboxes(@issue, @available_watchers) %>
+      <% end %>
+    </div>
 
   </div>
 

@@ -37,3 +37,6 @@
 .simple-buttons {
 }
 
+input#issue_assigned_to_id_ac {
+  width: 99%;
+}

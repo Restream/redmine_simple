@@ -4,7 +4,7 @@ function simplifyAssigneeField(url) {
 
     if ($('#issue_assigned_to_id_ac').length < 1) {
       $('#issue_assigned_to_id').hide()
-          .after('<input id="issue_assigned_to_id_ac" size="60">');
+          .after('<input id="issue_assigned_to_id_ac">');
     }
 
     $('#issue_assigned_to_id_ac')
