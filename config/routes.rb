@@ -6,4 +6,9 @@ RedmineApp::Application.routes.draw do
       end
     end
   end
+  resources :issues, :only => [] do
+    member do
+      put :edit
+    end
+  end
 end

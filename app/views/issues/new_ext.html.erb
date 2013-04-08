@@ -1,12 +1,7 @@
-<%= stylesheet_link_tag 'redmine_simple', :plugin => 'redmine_simple' %>
-<%= javascript_include_tag 'simplify_assignee', :plugin => 'redmine_simple' %>
-<%= javascript_include_tag 'simplify_links', :plugin => 'redmine_simple' %>
-
 <% if RedmineSimple.on? %>
-  <%= render :partial => 'simple/issues/new' %>
+  <%= render :template => 'simple/issues/new' %>
 <% else %>
   <%= render :template => 'issues/new' %>
 <% end %>
 
-<%= javascript_tag "simplifyAssigneeField('#{escape_javascript \
-        autocomplete_project_assignees_path(@project)}')" %>
+<%= render :partial => 'hooks/redmine_simple/issues/includes' %>

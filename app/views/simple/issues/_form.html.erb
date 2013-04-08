@@ -17,22 +17,49 @@
   <% end %>
 
   <% if @issue.safe_attribute? 'description' %>
-    <p>
+    <%= content_tag :p, :style => (@issue.persisted? ? 'display: none;' : nil) do %>
       <%= f.text_area :description,
                       :no_label => true,
                       :cols => 80,
                       :rows => (@issue.description.blank? ? 10 : [[10, @issue.description.length / 50].max, 100].min),
                       :accesskey => accesskey(:edit),
                       :class => 'no-label' %>
-    </p>
+    <% end %>
   <% end %>
+
+  <% if @issue.persisted? %>
+    <div class="splitcontent">
+      <div class="splitcontentleft">
+        <% if @issue.safe_attribute?('status_id') && @allowed_statuses.present? %>
+          <p>
+            <%= f.select :status_id, (@allowed_statuses.collect {|p| [p.name, p.id]}), {:required => true},
+                         :onchange => "updateIssueFrom('#{escape_javascript project_issue_form_path(@project, :id => @issue, :format => 'js')}')" %>
+          </p>
+        <% else %>
+          <p>
+            <label><%= l(:field_status) %></label> <%= h(@issue.status.name) %>
+          </p>
+        <% end %>
+      </div>
+      <div class="splitcontentright">
+        <% if @issue.safe_attribute?('done_ratio') && @issue.leaf? && Issue.use_field_for_done_ratio? %>
+          <p><%= f.select :done_ratio, ((0..10).to_a.collect {|r| ["#{r*10} %", r*10] }), :required => @issue.required_attribute?('done_ratio') %></p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <p>
+    <%= f.text_area :notes, :cols => 60, :rows => 10, :no_label => true, class: 'no-label' %>
+  </p>
 
   <!-- hidden attributes -->
   <div id="hidden-attributes" style="display: none;">
     <%= f.select :assigned_to_id,
                  principals_options_for_select(@issue.assignable_users, @issue.assigned_to),
                  :include_blank => true %>
-    <% hidden_fields = %w{is_private project_id tracker_id status_id priority_id category_id fixed_version_id parent_issue_id start_date due_date estimated_hours done_ratio} %>
+    <% hidden_fields = %w{is_private project_id tracker_id priority_id category_id fixed_version_id parent_issue_id start_date due_date estimated_hours} %>
+    <% hidden_fields << 'status_id' << 'done_ratio' unless @issue.persisted? %>
     <% hidden_fields.each do |field| %>
       <%= f.hidden_field field if @issue.safe_attribute? field %>
     <% end %>

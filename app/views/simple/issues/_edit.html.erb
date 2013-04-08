@@ -1,0 +1,22 @@
+<%= labelled_form_for @issue, :html => {:id => 'issue-form', :multipart => true} do |f| %>
+  <%= error_messages_for 'issue', 'time_entry' %>
+  <%= render :partial => 'conflict' if @conflict %>
+  <div class="simple-box tabular">
+    <% if @edit_allowed || !@allowed_statuses.empty? %>
+      <div id="all_attributes">
+        <%= render 'simple/issues/form', {:f => f} %>
+      </div>
+    <% end %>
+
+    <div style="display: none;">
+      <%= render :partial => 'attachments/form', :locals => {:container => @issue} %>
+    </div>
+  </div>
+
+  <%= f.hidden_field :lock_version %>
+  <%= hidden_field_tag 'last_journal_id', params[:last_journal_id] || @issue.last_journal_id %>
+  <%= submit_tag l(:button_submit) %>
+  <%= link_to_edit_issue_simplify_off(@issue) %>
+<% end %>
+
+<%= render 'hooks/redmine_simple/issues/includes' %>
