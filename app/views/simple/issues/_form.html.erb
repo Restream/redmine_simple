@@ -47,11 +47,10 @@
         <% end %>
       </div>
     </div>
+    <p>
+      <%= f.text_area :notes, :cols => 60, :rows => 10, :no_label => true, class: 'no-label' %>
+    </p>
   <% end %>
-
-  <p>
-    <%= f.text_area :notes, :cols => 60, :rows => 10, :no_label => true, class: 'no-label' %>
-  </p>
 
   <!-- hidden attributes -->
   <div id="hidden-attributes" style="display: none;">
