@@ -3,6 +3,7 @@ require File.expand_path('../../test_helper', __FILE__)
 class AssigneesControllerTest < ActionController::TestCase
   fixtures :projects,
            :users,
+           :groups_users,
            :roles,
            :members,
            :member_roles,
@@ -36,7 +37,7 @@ class AssigneesControllerTest < ActionController::TestCase
 
   def test_autocomplete_by_login
     user = User.find(3)
-    assignees = [{ :label => user.name, :value => user.id }]
+    assignees = { :more => false, :results => [{ :text => user.name, :id => user.id }]}
     get :autocomplete, :project_id => @project.id, :term => user.login
     assert_response :success
     assert_equal assignees.to_json, @response.body
@@ -44,11 +45,21 @@ class AssigneesControllerTest < ActionController::TestCase
 
   def construct_assignees_list
     # me + sorted users + sorted groups
-    users = @project.assignable_users.find_all { |u| !u.is_a?(Group) }.sort
-    groups = @project.assignable_users.find_all { |u| u.is_a?(Group) }.sort
-    [{ label: "<< #{l(:label_me)} >>", value: @user.id }] +
-        users.map { |u| { :label => u.name, :value => u.id } } +
-        groups.map { |u| { :label => "#{l(:label_group)}: #{u.name}", :value => u.id } }
+    groups, users = @project.assignable_users.sort.partition { |u| u.is_a?(Group) }
+    {
+        :more => false,
+        :results =>
+            [{ text: "<< #{l(:label_me)} >>", id: @user.id }] +
+            users.map { |u| { :text => u.name, :id => u.id } } +
+            (groups.empty? ? [] :
+            [{
+                 text: l(:label_group),
+                 :children =>
+                      groups.map do |u|
+                        { :text => "#{l(:label_group)}: #{u.name}", :id => u.id }
+                      end
+            }])
+    }
   end
 
 end
