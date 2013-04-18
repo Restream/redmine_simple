@@ -23,11 +23,7 @@ class RedmineSimple
   end
 end
 
-#hooks
-require 'redmine_simple/hooks/view_hooks'
-
 #patches
 require 'redmine_simple/patches/issues_helper_patch'
 require 'redmine_simple/patches/user_preference_patch'
 require 'redmine_simple/patches/application_controller_patch'
-require 'redmine_simple/patches/issues_controller_patch'

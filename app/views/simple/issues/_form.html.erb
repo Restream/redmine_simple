@@ -10,10 +10,8 @@
 
   <% if @issue.safe_attribute? 'assigned_to_id' %>
     <p>
-      <%= f.select :assigned_to_id,
-                   principals_options_for_select(@issue.assignable_users, @issue.assigned_to),
-                   :include_blank => true,
-                   :required => @issue.required_attribute?('assigned_to_id') %>
+      <label><%= l(:field_assigned_to) %></label>
+      <%= f.hidden_field :assigned_to_id, :data => { :text => @issue.assigned_to.try(:name).to_s } %>
     </p>
   <% end %>
 
@@ -55,9 +53,6 @@
 
   <!-- hidden attributes -->
   <div id="hidden-attributes" style="display: none;">
-    <%= f.select :assigned_to_id,
-                 principals_options_for_select(@issue.assignable_users, @issue.assigned_to),
-                 :include_blank => true %>
     <% hidden_fields = %w{is_private project_id tracker_id priority_id category_id fixed_version_id parent_issue_id start_date due_date estimated_hours} %>
     <% hidden_fields << 'status_id' << 'done_ratio' unless @issue.persisted? %>
     <% hidden_fields.each do |field| %>

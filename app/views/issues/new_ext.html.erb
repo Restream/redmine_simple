@@ -1,7 +1,0 @@
-<% if RedmineSimple.on? %>
-  <%= render :template => 'simple/issues/new' %>
-<% else %>
-  <%= render :template => 'issues/new' %>
-<% end %>
-
-<%= render :partial => 'hooks/redmine_simple/issues/includes' %>
