@@ -11,4 +11,5 @@ RedmineApp::Application.routes.draw do
       put :edit
     end
   end
+  match '/watchers/users' => 'watchers#users', :via => :get
 end

@@ -1,0 +1,7 @@
+<p>
+  <label><%= l(:label_issue_watchers) %></label>
+  <%= f.hidden_field :select2_watcher_user_ids,
+                     :data => { :initial => @issue.watchers.map { |w|
+                       { :id => w.user.id, :text => w.user.name }
+                     } } %>
+</p>

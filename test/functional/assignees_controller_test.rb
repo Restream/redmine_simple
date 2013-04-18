@@ -30,7 +30,7 @@ class AssigneesControllerTest < ActionController::TestCase
 
   def test_autocomplete
     assignees = construct_assignees_list
-    get :autocomplete, :project_id => @project.id
+    xhr :get, :autocomplete, :project_id => @project.id
     assert_response :success
     assert_equal assignees.to_json, @response.body
   end
@@ -38,7 +38,7 @@ class AssigneesControllerTest < ActionController::TestCase
   def test_autocomplete_by_login
     user = User.find(3)
     assignees = { :more => false, :results => [{ :text => user.name, :id => user.id }]}
-    get :autocomplete, :project_id => @project.id, :term => user.login
+    xhr :get, :autocomplete, :project_id => @project.id, :term => user.login
     assert_response :success
     assert_equal assignees.to_json, @response.body
   end

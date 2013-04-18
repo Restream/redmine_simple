@@ -23,7 +23,12 @@ class RedmineSimple
   end
 end
 
+#extends
+require 'redmine_simple/extends/select2_ids'
+
 #patches
 require 'redmine_simple/patches/issues_helper_patch'
 require 'redmine_simple/patches/user_preference_patch'
 require 'redmine_simple/patches/application_controller_patch'
+require 'redmine_simple/patches/issue_patch'
+require 'redmine_simple/patches/watchers_controller_patch'
