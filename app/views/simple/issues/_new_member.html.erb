@@ -1,0 +1,33 @@
+<h3 class="title"><%= l(:label_member_new) %></h3>
+
+<%= form_tag(project_memberships_path(project),
+             :remote => true,
+             :method => :post,
+             :id => 'new-member-form') do %>
+
+  <p>
+    <label id="new-member-candidate"></label>
+    <%= l(:text_not_member_yet) %>
+  </p>
+
+  <input type="hidden" id="membership_user_ids" name="membership[user_ids][]">
+
+  <p>
+    <%= l(:label_role_plural) %>:
+    <% Role.find_all_givable.each do |role| %>
+      <label><%= check_box_tag 'membership[role_ids][]', role.id %> <%=h role %></label>
+    <% end %>
+  </p>
+
+  <p class="buttons">
+    <%= submit_tag l(:button_add),
+                   :id => 'member-add-submit',
+                   :name => nil,
+                   :onclick => "hideModal(this);" %>
+    <%= submit_tag l(:button_cancel),
+                   :name => nil,
+                   :id => 'member-add-cancel',
+                   :onclick => "hideModal(this);",
+                   :type => 'button' %>
+  </p>
+<% end %>

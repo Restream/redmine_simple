@@ -29,7 +29,7 @@ class AssigneesControllerTest < ActionController::TestCase
   end
 
   def test_autocomplete
-    assignees = construct_assignees_list
+    assignees = construct_assignees_list(@user)
     xhr :get, :autocomplete, :project_id => @project.id
     assert_response :success
     assert_equal assignees.to_json, @response.body
@@ -37,27 +37,49 @@ class AssigneesControllerTest < ActionController::TestCase
 
   def test_autocomplete_by_login
     user = User.find(3)
-    assignees = { :more => false, :results => [{ :text => user.name, :id => user.id }]}
+    assignees = { :more => false, :results => [{ :id => user.id, :text => user.name }]}
     xhr :get, :autocomplete, :project_id => @project.id, :term => user.login
     assert_response :success
     assert_equal assignees.to_json, @response.body
   end
 
-  def construct_assignees_list
+  def test_autocomplete_by_name_parts
+    user = User.find(3) # Dave Lopper
+    assignees = { :more => false, :results => [{ :id => user.id, :text => user.name }]}
+    xhr :get, :autocomplete, :project_id => @project.id, :term => "  lop   dav  "
+    assert_response :success
+    assert_equal assignees.to_json, @response.body
+  end
+
+  def construct_assignees_list(current_user)
     # me + sorted users + sorted groups
+    # + sorted non_members (if current user can manage members)
+
     groups, users = @project.assignable_users.sort.partition { |u| u.is_a?(Group) }
+
+    non_members = current_user.allowed_to?(:manage_members, @project) ?
+      User.active.not_member_of(@project).sort : []
+
     {
         :more => false,
         :results =>
-            [{ text: "<< #{l(:label_me)} >>", id: @user.id }] +
-            users.map { |u| { :text => u.name, :id => u.id } } +
+            [{ id: @user.id, text: "<< #{l(:label_me)} >>" }] +
+            users.map { |u| { :id => u.id, :text => u.name } } +
             (groups.empty? ? [] :
             [{
-                 text: l(:label_group),
-                 :children =>
-                      groups.map do |u|
-                        { :text => "#{l(:label_group)}: #{u.name}", :id => u.id }
-                      end
+                :text => l(:label_group),
+                :children =>
+                    groups.map do |u|
+                      { :id => u.id, :text => u.name }
+                    end
+            }]) +
+            (non_members.empty? ? [] :
+            [{
+                :text => l(:label_role_non_member),
+                :children =>
+                    non_members.map do |u|
+                      { :id => u.id, :text => u.name, :non_member => true }
+                    end
             }])
     }
   end

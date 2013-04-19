@@ -40,3 +40,7 @@
 input#issue_assigned_to_id_ac {
   width: 60%;
 }
+
+#new-member-candidate {
+  font-weight: bold;
+}

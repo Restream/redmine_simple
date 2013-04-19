@@ -2,4 +2,5 @@ en:
   field_simplify: 'Simplify interface'
   text_simplify_on: 'Show simple interface. You can set the default behaviour in your account settings.'
   text_simplify_off: 'Show full interface.'
+  text_not_member_yet: 'is not member yet. If you want to add new member, please select appropriate roles.'
 

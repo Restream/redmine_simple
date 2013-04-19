@@ -11,3 +11,26 @@
 
 <%= javascript_tag "simplifyAssignee('#{escape_javascript autocomplete_project_assignees_path(@project)}')" %>
 <%= javascript_tag "simplifyWatchers('/watchers/users')" %>
+
+<% if User.current.allowed_to? :manage_members, @project %>
+  <%= javascript_tag do %>
+  function showNewMemberModal(attrs) {
+    $("#ajax-modal").html('<%= escape_javascript(render 'simple/issues/new_member', :project => @project) %>');
+    $('#membership_user_ids').val(attrs.memberId);
+    $("#new-member-candidate").text(attrs.memberName);
+    $("#member-add-cancel").on("click", attrs.cancel);
+    $('input[name="membership[role_ids][]"]').on('change', function() {
+      $('#member-add-submit').attr('disabled',
+          $('input[name="membership[role_ids][]"]:checked').length < 1);
+    });
+    $('input[name="membership[role_ids][]"]:first').trigger('change');
+    if (attrs.success) {
+      $("#new-member-form").bind('ajax:success', function() {
+        attrs.success.call();
+      });
+    }
+    showModal("ajax-modal", "400px");
+    $("#ajax-modal").addClass("new-member");
+  }
+  <% end %>
+<% end %>
