@@ -6,7 +6,7 @@ class AssigneesController < ApplicationController
   def autocomplete
     q = format_query(params[:term])
     @users = find_assignable_users_like(q)
-    @me = find_me_like(q) if @users.include?(User.current)
+    @me = find_me_like(q, @users)
     @groups = find_groups_like(q)
     @non_members = find_non_members_like(q)
   end
@@ -23,9 +23,9 @@ class AssigneesController < ApplicationController
     users.find_all { |u| q_users_ids.include?(u.id) }
   end
 
-  def find_me_like(q)
+  def find_me_like(q, users)
     me = "<< #{l(:label_me)} >>"
-    if q.blank? || me.downcase.include?(q)
+    if users.include?(User.current) || me.downcase.include?(q)
       { text: me, id: User.current.id }
     end
   end

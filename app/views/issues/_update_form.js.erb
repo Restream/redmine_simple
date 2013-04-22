@@ -1,0 +1,14 @@
+<% if RedmineSimple.on? %>
+  $('#all_attributes').html('<%= escape_javascript(render :partial => 'simple/issues/form') %>');
+<% else %>
+  $('#all_attributes').html('<%= escape_javascript(render :partial => 'form') %>');
+<% end %>
+
+<% if User.current.allowed_to?(:log_time, @issue.project) %>
+  $('#log_time').show();
+<% else %>
+  $('#log_time').hide();
+<% end %>
+
+simplifyAssignee('<%= escape_javascript autocomplete_project_assignees_path(@project) %>');
+simplifyWatchers('/watchers/users');

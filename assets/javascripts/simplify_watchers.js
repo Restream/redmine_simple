@@ -16,5 +16,7 @@ function simplifyWatchers(url) {
       $("#issue_select2_watcher_user_ids").select2("data", initialData);
     }
 
+    $("#issue_select2_watcher_user_ids").parent('p').addClass('select2-field');
+
   });
 }

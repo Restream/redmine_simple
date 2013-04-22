@@ -44,3 +44,20 @@ input#issue_assigned_to_id_ac {
 #new-member-candidate {
   font-weight: bold;
 }
+
+#ruler {
+  position: absolute;
+  top: 115px;
+  left: 0px;
+  width: 1000px;
+  background-color: gray;
+  height: 1px;
+}
+
+.simple-box.tabular label {
+  margin-top: 2px;
+}
+
+.tabular p.select2-field label {
+  margin-top: 5px;
+}

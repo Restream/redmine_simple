@@ -33,6 +33,9 @@ function simplifyAssignee(url) {
             });
           }
         });
+
+    $("#issue_assigned_to_id").parent('p').addClass('select2-field');
+
   });
 }
 
