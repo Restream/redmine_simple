@@ -50,7 +50,8 @@ class WatchersControllerTest < ActionController::TestCase
 
   def construct_users_list(term = nil)
     users = User.active.like(term).limit(100).sort
-    members, non_members = users.partition { |u| @project.visible?(u) }
+    member_ids = @project.users.pluck(:user_id)
+    members, non_members = users.partition { |u| member_ids.include?(u.id) }
     results = members.map { |u| { :id => u.id, :text => u.name } }
     results << {
         :text => l(:label_role_non_member),

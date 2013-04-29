@@ -19,7 +19,8 @@ module RedmineSimple::Patches
       # Take only one space between first name and lastname
       q.sub! /\s{2,}/, ' '
 
-      User.active.like(q).limit(100).sort.partition { |u| @project.visible?(u) }
+      members = @project.users.pluck(:user_id)
+      User.active.like(q).limit(100).sort.partition { |u| members.include?(u.id) }
     end
 
   end
