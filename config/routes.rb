@@ -11,5 +11,7 @@ RedmineApp::Application.routes.draw do
       put :edit
     end
   end
-  match '/watchers/users' => 'watchers#users', :via => :get
+  match '/watchers/autocomplete_for_project/:project_id' => 'watchers#autocomplete_for_project',
+        :via => :get,
+        :as => 'autocomplete_project_watchers'
 end

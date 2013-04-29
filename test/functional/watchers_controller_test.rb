@@ -30,7 +30,9 @@ class WatchersControllerTest < ActionController::TestCase
 
   def test_users
     users = construct_users_list.to_json
-    xhr :get, :users
+    xhr :get,
+        :autocomplete_for_project,
+        :project_id => @project.identifier
     assert_response :success
     assert_equal users, @response.body
   end
@@ -38,16 +40,27 @@ class WatchersControllerTest < ActionController::TestCase
   def test_autocomplete_by_login
     user = User.find(3)
     users = construct_users_list(user.login).to_json
-    xhr :get, :users, :term => user.login
+    xhr :get,
+        :autocomplete_for_project,
+        :project_id => @project.identifier,
+        :term => user.login
     assert_response :success
     assert_equal users, @response.body
   end
 
   def construct_users_list(term = nil)
-    users = User.active.like(term).limit(100)
+    users = User.active.like(term).limit(100).sort
+    members, non_members = users.partition { |u| @project.visible?(u) }
+    results = members.map { |u| { :id => u.id, :text => u.name } }
+    results << {
+        :text => l(:label_role_non_member),
+        :children => non_members.map do |watcher|
+          { :id => watcher.id, :text => watcher.name }
+        end
+    } if non_members.any?
     {
         :more => false,
-        :results => users.map { |u| { :id => u.id, :text => u.name } }
+        :results => results
     }
   end
 

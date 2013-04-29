@@ -10,7 +10,7 @@
 %>
 
 <%= javascript_tag "simplifyAssignee('#{escape_javascript autocomplete_project_assignees_path(@project)}')" %>
-<%= javascript_tag "simplifyWatchers('/watchers/users')" %>
+<%= javascript_tag "simplifyWatchers('#{escape_javascript autocomplete_project_watchers_path(@project)}')" %>
 
 <% if User.current.allowed_to? :manage_members, @project %>
   <%= javascript_tag do %>

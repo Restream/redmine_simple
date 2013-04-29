@@ -2,8 +2,12 @@ module RedmineSimple::Patches
   module WatchersControllerPatch
     extend ActiveSupport::Concern
 
-    def users
-      @users = find_users_like(params[:term])
+    included do
+      before_filter :find_project_by_project_id, :only => :autocomplete_for_project
+    end
+
+    def autocomplete_for_project
+      @members, @non_members = find_users_like(params[:term])
       render :layout => nil
     end
 
@@ -15,7 +19,7 @@ module RedmineSimple::Patches
       # Take only one space between first name and lastname
       q.sub! /\s{2,}/, ' '
 
-      User.active.like(q).limit(100).sort
+      User.active.like(q).limit(100).sort.partition { |u| @project.visible?(u) }
     end
 
   end
