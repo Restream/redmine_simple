@@ -1,14 +1,23 @@
 function simplifyWatchers(url) {
   $(document).ready(function() {
 
-    $("#issue_select2_watcher_user_ids").select2({
-      width: "60%",
-      multiple: true,
-      ajax: {
-        url: url,
-        data: function(term,page) { return { term: term }; },
-        results: function(data, page) { return data; }
-      }
+    $.ajax(url).success(function(initialData) {
+
+      $("#issue_select2_watcher_user_ids").select2({
+        width: "60%",
+        multiple: true,
+        query: function(query) {
+          if (query.term == "") {
+            query.callback(initialData);
+          } else {
+            $.ajax({
+              url: url,
+              data: { term: query.term }
+            }).success(function(data) { query.callback(data) });
+          }
+        }
+      });
+
     });
 
     var initialData = $("#issue_select2_watcher_user_ids").data("initial");

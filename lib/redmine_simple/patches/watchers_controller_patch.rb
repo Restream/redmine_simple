@@ -15,7 +15,7 @@ module RedmineSimple::Patches
       # Take only one space between first name and lastname
       q.sub! /\s{2,}/, ' '
 
-      User.active.like(q).limit(100)
+      User.active.like(q).limit(100).sort
     end
 
   end
