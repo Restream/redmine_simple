@@ -5,15 +5,22 @@ function simplifyAssignee(url) {
       $("#issue_assigned_to_id").select2("data", { id: "", text: "" });
     };
 
-    $("#issue_assigned_to_id")
+    $.ajax(url).success(function(initialData) {
+
+      $("#issue_assigned_to_id")
         .select2({
           width: '60%',
           allowClear: true,
           placeholder: ' ',
-          ajax: {
-            url: url,
-            data: function(term, page) { return { term: term }; },
-            results: function(data, page) { return data; }
+          query: function(query) {
+            if (query.term == "") {
+              query.callback(initialData);
+            } else {
+              $.ajax({
+                url: url,
+                data: { term: query.term }
+              }).success(function(data) { query.callback(data) });
+            }
           }
         })
         .select2("data", {
@@ -33,6 +40,7 @@ function simplifyAssignee(url) {
             });
           }
         });
+    });
 
     $("#issue_assigned_to_id").parent('p').addClass('select2-field');
 
