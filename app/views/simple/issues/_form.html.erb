@@ -1,4 +1,7 @@
 <%= labelled_fields_for :issue, @issue do |f| %>
+  <div class="simple-hidden">
+    <%= call_hook(:view_issues_form_details_top, { :issue => @issue, :form => f }) %>
+  </div>
 
   <% if @issue.safe_attribute? 'subject' %>
     <p>
@@ -52,7 +55,7 @@
   <% end %>
 
   <!-- hidden attributes -->
-  <div id="hidden-attributes" style="display: none;">
+  <div class="simple-hidden">
     <% hidden_fields = %w{is_private project_id tracker_id priority_id category_id fixed_version_id parent_issue_id start_date due_date estimated_hours} %>
     <% hidden_fields << 'status_id' << 'done_ratio' unless @issue.persisted? %>
     <% hidden_fields.each do |field| %>
@@ -61,6 +64,7 @@
     <% if @issue.safe_attribute? 'custom_field_values' %>
       <%= render :partial => 'issues/form_custom_fields' %>
     <% end %>
+    <%= call_hook(:view_issues_form_details_bottom, { :issue => @issue, :form => f }) %>
   </div>
 
 <% end %>

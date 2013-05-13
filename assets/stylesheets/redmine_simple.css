@@ -61,3 +61,7 @@ input#issue_assigned_to_id_ac {
 .tabular p.select2-field label {
   margin-top: 5px;
 }
+
+.simple-hidden {
+  display: none;
+}
