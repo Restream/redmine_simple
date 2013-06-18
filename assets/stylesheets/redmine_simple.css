@@ -48,7 +48,7 @@ input#issue_assigned_to_id_ac {
 #ruler {
   position: absolute;
   top: 115px;
-  left: 0px;
+  left: 0;
   width: 1000px;
   background-color: gray;
   height: 1px;
@@ -64,4 +64,8 @@ input#issue_assigned_to_id_ac {
 
 .simple-hidden {
   display: none;
+}
+
+.select2-field input {
+  padding: 0;
 }
