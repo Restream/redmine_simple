@@ -1,7 +1,7 @@
 # replace issue edit partial if RedmineSimple.on?
 
 Deface::Override.new(
-    :virtual_path => 'issues/show',
+    :virtual_path => 'issues/show.html.erb',
     :name => 'simplify_issue_edit_partial',
     :replace => 'code:contains("render :partial => \'edit\'")',
     :text => <<-INCLUDES
