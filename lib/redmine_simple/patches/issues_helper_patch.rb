@@ -35,12 +35,6 @@ module RedmineSimple::Patches
               edit_issue_path(issue, :simplify => simplify),
               { :class => link_class }
     end
-
-    def find_select2_js_locale(lang)
-      url = "select2/select2_locale_#{lang}"
-      file_path = File.join(Rails.root, "/plugin_assets/redmine_simple/#{url}")
-      url if File.exists?(file_path)
-    end
   end
 end
 

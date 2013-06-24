@@ -15,6 +15,7 @@ Redmine::Plugin.register :redmine_simple do
   url         'https://github.com/Undev/redmine_simple'
 
   requires_redmine :version_or_higher => '2.1'
+  requires_redmine_plugin :redmine_select2, :version_or_higher => '0.0.1'
 
   # permission for autocomplete must be the same as :add_issues
   Redmine::AccessControl.permission(:add_issues).actions << 'assignees/autocomplete'
