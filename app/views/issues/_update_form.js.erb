@@ -11,4 +11,4 @@
 <% end %>
 
 simplifyAssignee('<%= escape_javascript autocomplete_project_assignees_path(@project) %>');
-simplifyWatchers('/watchers/users');
+simplifyWatchers('<%= escape_javascript autocomplete_project_watchers_path(@project) %>');
