@@ -40,7 +40,7 @@ class AssigneesController < ApplicationController
 
   def find_non_members_like(q)
     User.current.allowed_to?(:manage_members, @project) ?
-      User.active.like(q).not_member_of(@project).limit(100).sort : []
+      User.active.like(q).not_member_of(@project).sort : []
   end
 
   def format_query(q)

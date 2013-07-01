@@ -20,7 +20,7 @@ module RedmineSimple::Patches
       q.sub! /\s{2,}/, ' '
 
       members = @project.users.pluck(:user_id)
-      User.active.like(q).limit(100).sort.partition { |u| members.include?(u.id) }
+      User.active.like(q).sort.partition { |u| members.include?(u.id) }
     end
 
   end
