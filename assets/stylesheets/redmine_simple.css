@@ -10,10 +10,6 @@
   float: right;
 }
 
-.simple-box input {
-  width: 99%;
-}
-
 .simple-box textarea {
   width: 99%;
   min-width: 99%;
