@@ -65,3 +65,7 @@ input#issue_assigned_to_id_ac {
 .select2-field input {
   padding: 0;
 }
+
+ul.select2-results {
+  max-height: 400px;
+}
