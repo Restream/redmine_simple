@@ -3,12 +3,11 @@
 <%= javascript_include_tag 'simplify_watchers', :plugin => 'redmine_simple' %>
 <%= javascript_include_tag 'simplify_links', :plugin => 'redmine_simple' %>
 
-<%= javascript_tag "simplifyAssignee('#{escape_javascript autocomplete_project_assignees_path(@project)}')" %>
 <%= javascript_tag "simplifyWatchers('#{escape_javascript autocomplete_project_watchers_path(@project)}')" %>
 
-<% if User.current.allowed_to? :manage_members, @project %>
-  <%= javascript_tag do %>
+<%= javascript_tag do %>
   function showNewMemberModal(attrs) {
+  <% if User.current.allowed_to? :manage_members, @project %>
     $("#ajax-modal").html('<%= escape_javascript(render 'simple/issues/new_member', :project => @project) %>');
     $('#membership_user_ids').val(attrs.memberId);
     $("#new-member-candidate").text(attrs.memberName);
@@ -25,6 +24,6 @@
     }
     showModal("ajax-modal", "400px");
     $("#ajax-modal").addClass("new-member");
-  }
   <% end %>
+  }
 <% end %>

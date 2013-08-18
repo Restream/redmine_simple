@@ -14,8 +14,9 @@
   <% if @issue.safe_attribute? 'assigned_to_id' %>
     <p>
       <label><%= l(:field_assigned_to) %></label>
-      <%= f.hidden_field :assigned_to_id, :data => { :text => @issue.assigned_to.try(:name).to_s } %>
+      <%= assignee_hidden_field(f, @issue) %>
     </p>
+    <%= javascript_tag "simplifyAssignee();" %>
   <% end %>
 
   <% if @issue.safe_attribute? 'description' %>

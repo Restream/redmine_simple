@@ -35,6 +35,68 @@ module RedmineSimple::Patches
               edit_issue_path(issue, :simplify => simplify),
               { :class => link_class }
     end
+
+    def assignee_for_select(issue)
+      # assignable_users + non_members
+      data = { :more => false, :results => [] }
+      members, groups = issue.assignable_users.partition { |u| u.is_a? User }
+      non_members = User.current.allowed_to?(:manage_members, issue.project) ?
+          User.active.not_member_of(issue.project).sort : []
+      # me
+      if members.include? User.current
+        data[:results] << user_to_select2_item(
+            User.current,
+            :text => "<< #{l(:label_me)} >>",
+            :name => User.current.name
+        )
+      elsif non_members.include? User.current
+        data[:results] << user_to_select2_item(
+            User.current,
+            :text => "<< #{l(:label_me)} >>",
+            :name => User.current.name,
+            :non_member => true)
+      end
+
+      # members
+      data[:results] += members.map { |u| user_to_select2_item(u) }
+
+      # groups
+      if groups.any?
+        data[:results] << {
+            :text => l(:label_group),
+            :children => groups.map { |u| user_to_select2_item(u) }
+        }
+      end
+
+      # non members
+      if non_members.any?
+        data[:results] << {
+            :text => l(:label_role_non_member),
+            :children => non_members.map do |u|
+              user_to_select2_item(u, :non_member => true)
+            end
+        }
+      end
+      data
+    end
+
+    def user_to_select2_item(*args)
+      options = args.extract_options!
+      user = args[0]
+      {
+          :id => user.id,
+          :text => user.name,
+          :login => user.login,
+          :email => user.mail
+      }.merge(options)
+    end
+
+    def assignee_hidden_field(f, issue)
+      f.hidden_field :assigned_to_id, :data => {
+          :initial => assignee_for_select(issue),
+          :text => issue.assigned_to.try(:name).to_s }
+    end
+
   end
 end
 
