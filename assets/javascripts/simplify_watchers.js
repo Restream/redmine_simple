@@ -1,31 +1,30 @@
-function simplifyWatchers(url) {
-  $(document).ready(function() {
+function simplifyWatchers() {
+  var selectId = "#issue_select2_watcher_user_ids";
 
-    $.ajax(url).success(function(initialData) {
+  if ($(selectId).length == 0 ) return;
 
-      $("#issue_select2_watcher_user_ids").select2({
-        width: "60%",
-        multiple: true,
-        query: function(query) {
-          if (query.term == "") {
-            query.callback(initialData);
-          } else {
-            $.ajax({
-              url: url,
-              data: { term: query.term }
-            }).success(function(data) { query.callback(data) });
-          }
+  var initialData = $(selectId).data("initial");
+
+  $(selectId).
+    select2({
+      width: "60%",
+      multiple: true,
+      query: function(query) {
+        if (query.term == "") {
+          query.callback(initialData);
+        } else {
+          var filtered_data = simplifyFilterData(initialData.results, query.term);
+          query.callback({
+            more: false,
+            results: filtered_data
+          });
         }
-      });
+      }
+    }).select2("data", $(selectId).data("selected"));
 
-    });
-
-    var initialData = $("#issue_select2_watcher_user_ids").data("initial");
-    if (initialData !== "") {
-      $("#issue_select2_watcher_user_ids").select2("data", initialData);
-    }
-
-    $("#issue_select2_watcher_user_ids").parent('p').addClass('select2-field');
-
-  });
+  $(selectId).parent('p').addClass('select2-field');
 }
+
+$(document).ready(function() {
+  simplifyWatchers();
+});

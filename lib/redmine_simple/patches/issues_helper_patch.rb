@@ -39,7 +39,7 @@ module RedmineSimple::Patches
     def assignee_for_select(issue)
       # assignable_users + non_members
       data = { :more => false, :results => [] }
-      members, groups = issue.assignable_users.partition { |u| u.is_a? User }
+      members, groups = issue.assignable_users.sort.partition { |u| u.is_a? User }
       non_members = User.current.allowed_to?(:manage_members, issue.project) ?
           User.active.not_member_of(issue.project).sort : []
       # me
@@ -80,6 +80,36 @@ module RedmineSimple::Patches
       data
     end
 
+    def watchers_for_select(issue)
+      # me, members + non_members
+      data = { :more => false, :results => [] }
+
+      member_ids = issue.project.users.pluck(:user_id)
+      members, non_members =
+          User.active.sort.partition { |u| member_ids.include?(u.id) }
+
+      # me
+      data[:results] << user_to_select2_item(
+          User.current,
+          :text => "<< #{l(:label_me)} >>",
+          :name => User.current.name
+      )
+
+      # members
+      data[:results] += members.map { |u| user_to_select2_item(u) }
+
+      # non members
+      if non_members.any?
+        data[:results] << {
+            :text => l(:label_role_non_member),
+            :children => non_members.map do |u|
+              user_to_select2_item(u, :non_member => true)
+            end
+        }
+      end
+      data
+    end
+
     def user_to_select2_item(*args)
       options = args.extract_options!
       user = args[0]
@@ -95,6 +125,14 @@ module RedmineSimple::Patches
       f.hidden_field :assigned_to_id, :data => {
           :initial => assignee_for_select(issue),
           :text => issue.assigned_to.try(:name).to_s }
+    end
+
+    def watchers_hidden_field(f, issue)
+      f.hidden_field :select2_watcher_user_ids, :data => {
+          :initial => watchers_for_select(issue),
+          :selected => issue.watcher_users.map { |u| { :id => u.id,
+                                                       :text => u.name } }
+      }
     end
 
   end

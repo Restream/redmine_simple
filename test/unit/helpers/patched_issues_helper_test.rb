@@ -91,4 +91,54 @@ class PatchedIssuesHelperTest < ActionView::TestCase
                              :text => "Non member" }] }
     assert_equal expected_data, data
   end
+
+  def test_watchers_for_select
+    user = User.find(1)
+    User.current = user
+
+    data = watchers_for_select(@issue)
+    expected_data = { :more => false,
+                      :results =>
+                          [{ :email => "admin@somenet.foo",
+                             :id => 1,
+                             :login => "admin",
+                             :name => "redMine Admin",
+                             :text => "<< me >>" },
+                           { :email => "dlopper@somenet.foo",
+                             :id => 3,
+                             :login => "dlopper",
+                             :text => "Dave Lopper" },
+                           { :email => "jsmith@somenet.foo",
+                             :id => 2,
+                             :login => "jsmith",
+                             :text => "John Smith" },
+                           { :children =>
+                                 [{ :email => "admin@somenet.foo",
+                                    :id => 1,
+                                    :login => "admin",
+                                    :non_member => true,
+                                    :text => "redMine Admin" },
+                                  { :email => "rhill@somenet.foo",
+                                    :id => 4,
+                                    :login => "rhill",
+                                    :non_member => true,
+                                    :text => "Robert Hill" },
+                                  { :email => "someone@foo.bar",
+                                    :id => 7,
+                                    :login => "someone",
+                                    :non_member => true,
+                                    :text => "Some One" },
+                                  { :email => "miscuser8@foo.bar",
+                                    :id => 8,
+                                    :login => "miscuser8",
+                                    :non_member => true,
+                                    :text => "User Misc" },
+                                  { :email => "miscuser9@foo.bar",
+                                    :id => 9,
+                                    :login => "miscuser9",
+                                    :non_member => true,
+                                    :text => "User Misc" }],
+                             :text => "Non member" }] }
+    assert_equal expected_data, data
+  end
 end

@@ -16,7 +16,6 @@
       <label><%= l(:field_assigned_to) %></label>
       <%= assignee_hidden_field(f, @issue) %>
     </p>
-    <%= javascript_tag "simplifyAssignee();" %>
   <% end %>
 
   <% if @issue.safe_attribute? 'description' %>
