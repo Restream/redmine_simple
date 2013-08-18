@@ -42,19 +42,21 @@ module RedmineSimple::Patches
       members, groups = issue.assignable_users.sort.partition { |u| u.is_a? User }
       non_members = User.current.allowed_to?(:manage_members, issue.project) ?
           User.active.not_member_of(issue.project).sort : []
+
       # me
-      if members.include? User.current
+      data[:results] << user_to_select2_item(
+          User.current,
+          :text => "<< #{l(:label_me)} >>",
+          :name => User.current.name
+      )
+
+      # author
+      if User.current.id != issue.author.id
         data[:results] << user_to_select2_item(
-            User.current,
-            :text => "<< #{l(:label_me)} >>",
-            :name => User.current.name
+            issue.author,
+            :text => "<< #{l(:field_author)} >>",
+            :name => issue.author.name
         )
-      elsif non_members.include? User.current
-        data[:results] << user_to_select2_item(
-            User.current,
-            :text => "<< #{l(:label_me)} >>",
-            :name => User.current.name,
-            :non_member => true)
       end
 
       # members
