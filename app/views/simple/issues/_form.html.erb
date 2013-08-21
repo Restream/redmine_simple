@@ -3,6 +3,10 @@
     <%= call_hook(:view_issues_form_details_top, { :issue => @issue, :form => f }) %>
   </div>
 
+  <% if @issue.safe_attribute? 'tracker_id' %>
+    <p><%= f.select :tracker_id, @issue.project.trackers.collect {|t| [t.name, t.id]}, {:required => true} %></p>
+  <% end %>
+
   <% if @issue.safe_attribute? 'subject' %>
     <p>
       <%= f.text_field :subject,
@@ -56,7 +60,7 @@
 
   <!-- hidden attributes -->
   <div class="simple-hidden">
-    <% hidden_fields = %w{is_private project_id tracker_id priority_id category_id fixed_version_id parent_issue_id start_date due_date estimated_hours} %>
+    <% hidden_fields = %w{is_private project_id priority_id category_id fixed_version_id parent_issue_id start_date due_date estimated_hours} %>
     <% hidden_fields << 'status_id' << 'done_ratio' unless @issue.persisted? %>
     <% hidden_fields.each do |field| %>
       <%= f.hidden_field field if @issue.safe_attribute? field %>

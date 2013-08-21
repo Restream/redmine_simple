@@ -54,10 +54,6 @@ input#issue_assigned_to_id_ac {
   margin-top: 2px;
 }
 
-.tabular p.select2-field label {
-  margin-top: 5px;
-}
-
 .simple-hidden {
   display: none;
 }
@@ -68,4 +64,36 @@ input#issue_assigned_to_id_ac {
 
 ul.select2-results {
   max-height: 400px;
+}
+
+select {
+  -webkit-appearance: button;
+  -webkit-border-radius: 4px;
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  -webkit-padding-end: 22px;
+  -webkit-padding-start: 2px;
+  -webkit-user-select: none;
+
+  background-color: #fff;
+  /*background-image: url(/plugin_assets/redmine_select2/images/select2-arrow.png), */
+  /*-webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);*/
+  background-image: url(/plugin_assets/redmine_select2/images/select2-arrow.png), -webkit-gradient(linear, left bottom, left top, color-stop(0, #eeeeee), color-stop(0.5, white));
+  background-image: url(/plugin_assets/redmine_select2/images/select2-arrow.png), -webkit-linear-gradient(center bottom, #eeeeee 0%, white 50%);
+  background-image: url(/plugin_assets/redmine_select2/images/select2-arrow.png), -moz-linear-gradient(center bottom, #eeeeee 0%, white 50%);
+  background-image: url(/plugin_assets/redmine_select2/images/select2-arrow.png), -o-linear-gradient(bottom, #eeeeee 0%, #ffffff 50%);
+  background-image: url(/plugin_assets/redmine_select2/images/select2-arrow.png), -ms-linear-gradient(top, #ffffff 0%, #eeeeee 50%);
+  background-position: center right;
+  background-repeat: no-repeat;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffff', endColorstr = '#eeeeee', GradientType = 0);
+
+  background-image: url(/plugin_assets/redmine_select2/images/select2-arrow.png), linear-gradient(top, #ffffff 0%, #eeeeee 50%);
+
+  border: 1px solid #aaa;
+  color: #555;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 22px;
+  padding: 0 0 0 3px;
 }
