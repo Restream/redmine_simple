@@ -67,19 +67,17 @@ ul.select2-results {
 }
 
 select {
+  -webkit-padding-end: 22px;
+  -webkit-padding-start: 8px;
+}
+
+select {
   -webkit-appearance: button;
   -webkit-border-radius: 4px;
-  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-  -webkit-padding-end: 22px;
-  -webkit-padding-start: 2px;
   -webkit-user-select: none;
 
   background-color: #fff;
-  /*background-image: url(/plugin_assets/redmine_select2/images/select2-arrow.png), */
-  /*-webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);*/
   background-image: url(/plugin_assets/redmine_select2/images/select2-arrow.png), -webkit-gradient(linear, left bottom, left top, color-stop(0, #eeeeee), color-stop(0.5, white));
-  background-image: url(/plugin_assets/redmine_select2/images/select2-arrow.png), -webkit-linear-gradient(center bottom, #eeeeee 0%, white 50%);
-  background-image: url(/plugin_assets/redmine_select2/images/select2-arrow.png), -moz-linear-gradient(center bottom, #eeeeee 0%, white 50%);
   background-image: url(/plugin_assets/redmine_select2/images/select2-arrow.png), -o-linear-gradient(bottom, #eeeeee 0%, #ffffff 50%);
   background-image: url(/plugin_assets/redmine_select2/images/select2-arrow.png), -ms-linear-gradient(top, #ffffff 0%, #eeeeee 50%);
   background-position: center right;
@@ -89,11 +87,31 @@ select {
   background-image: url(/plugin_assets/redmine_select2/images/select2-arrow.png), linear-gradient(top, #ffffff 0%, #eeeeee 50%);
 
   border: 1px solid #aaa;
-  color: #555;
+  border-radius: 4px 4px 4px 4px;
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   height: 22px;
-  padding: 0 0 0 3px;
+  padding: 0 13px 0 3px;
+
+  font-size: inherit;
+  font-family: inherit;
+}
+
+@-moz-document url-prefix() {
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+
+    background-image: url("/plugin_assets/redmine_select2/images/select2-arrow.png"), -moz-linear-gradient(center bottom , #EEEEEE 0%, white 50%);
+
+    padding: 1px 3px 0 2px;
+  }
+}
+
+@media \0screen {
+  select { padding-right: 0; }
 }

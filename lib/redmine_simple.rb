@@ -32,3 +32,6 @@ require 'redmine_simple/patches/user_preference_patch'
 require 'redmine_simple/patches/application_controller_patch'
 require 'redmine_simple/patches/issue_patch'
 require 'redmine_simple/patches/issues_controller_patch'
+
+#hooks
+require 'redmine_simple/hooks/view_hooks'
