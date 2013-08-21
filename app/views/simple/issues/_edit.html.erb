@@ -20,5 +20,8 @@
   <%= f.hidden_field :lock_version %>
   <%= hidden_field_tag 'last_journal_id', params[:last_journal_id] || @issue.last_journal_id %>
   <%= submit_tag l(:button_submit) %>
+  <%= preview_link preview_edit_issue_path(:project_id => @project, :id => @issue), 'issue-form' %>
   <%= link_to_edit_issue_simplify_off(@issue) %>
 <% end %>
+
+<div id="preview" class="wiki"></div>
