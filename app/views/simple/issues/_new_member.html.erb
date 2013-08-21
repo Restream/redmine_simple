@@ -12,12 +12,11 @@
 
   <input type="hidden" id="membership_user_ids" name="membership[user_ids][]">
 
-  <p>
-    <%= l(:label_role_plural) %>:
+  <div class="new-meber-roles">
     <% Role.find_all_givable.each do |role| %>
-      <label><%= check_box_tag 'membership[role_ids][]', role.id %> <%=h role %></label>
+      <label><%= check_box_tag 'membership[role_ids][]', role.id %> <%=h role %></label><br/>
     <% end %>
-  </p>
+  </div>
 
   <p class="buttons">
     <%= submit_tag l(:button_add),
