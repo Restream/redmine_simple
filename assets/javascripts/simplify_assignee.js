@@ -9,9 +9,13 @@ function simplifyAssignee() {
 
   var initialData = $(selectId).data("initial");
 
+  var simpleMode = $(selectId).parents(".simple-box").length > 0;
+
+  var assigneeWidth = simpleMode ? '20%' : '60%';
+
   $(selectId)
     .select2({
-      width: '60%',
+      width: assigneeWidth,
       allowClear: true,
       placeholder: ' ',
       query: function(query) {

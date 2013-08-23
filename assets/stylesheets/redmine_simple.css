@@ -94,8 +94,7 @@ select:not([multiple='multiple']) {
   height: 22px;
   padding: 0 13px 0 3px;
 
-  font-size: inherit;
-  font-family: inherit;
+  font: inherit;
 }
 
 @-moz-document url-prefix() {
@@ -113,4 +112,12 @@ select:not([multiple='multiple']) {
 
 @media \0screen {
   select { padding-right: 0; }
+}
+
+.simple-box select, .simple-box select#issue_done_ratio {
+  width: 20%;
+}
+
+.simple-box input, .simple-box textarea {
+  font: inherit;
 }

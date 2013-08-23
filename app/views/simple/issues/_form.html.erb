@@ -34,25 +34,19 @@
   <% end %>
 
   <% if @issue.persisted? %>
-    <div class="splitcontent">
-      <div class="splitcontentleft">
-        <% if @issue.safe_attribute?('status_id') && @allowed_statuses.present? %>
-          <p>
-            <%= f.select :status_id, (@allowed_statuses.collect {|p| [p.name, p.id]}), {:required => true},
-                         :onchange => "updateIssueFrom('#{escape_javascript project_issue_form_path(@project, :id => @issue, :format => 'js')}')" %>
-          </p>
-        <% else %>
-          <p>
-            <label><%= l(:field_status) %></label> <%= h(@issue.status.name) %>
-          </p>
-        <% end %>
-      </div>
-      <div class="splitcontentright">
-        <% if @issue.safe_attribute?('done_ratio') && @issue.leaf? && Issue.use_field_for_done_ratio? %>
-          <p><%= f.select :done_ratio, ((0..10).to_a.collect {|r| ["#{r*10} %", r*10] }), :required => @issue.required_attribute?('done_ratio') %></p>
-        <% end %>
-      </div>
-    </div>
+    <p>
+      <% if @issue.safe_attribute?('status_id') && @allowed_statuses.present? %>
+          <%= f.select :status_id, (@allowed_statuses.collect {|p| [p.name, p.id]}), {:required => true},
+                       :onchange => "updateIssueFrom('#{escape_javascript project_issue_form_path(@project, :id => @issue, :format => 'js')}')" %>
+      <% else %>
+          <label><%= l(:field_status) %></label> <%= h(@issue.status.name) %>
+      <% end %>
+    </p>
+
+    <% if @issue.safe_attribute?('done_ratio') && @issue.leaf? && Issue.use_field_for_done_ratio? %>
+      <p><%= f.select :done_ratio, ((0..10).to_a.collect {|r| ["#{r*10} %", r*10] }), :required => @issue.required_attribute?('done_ratio') %></p>
+    <% end %>
+
     <p class="no-label">
       <%= f.text_area :notes, :cols => 60, :rows => 10, :no_label => true, class: 'no-label', :value => @notes %>
     </p>
