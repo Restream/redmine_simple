@@ -16,9 +16,8 @@
   max-width: 99%;
 }
 
-.tabular .no-label {
-  margin-left: -180px;
-  padding-right: 180px;
+p.no-label {
+  padding: 3px 0 3px 8px;
 }
 
 .simple-box {

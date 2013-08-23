@@ -23,7 +23,7 @@
   <% end %>
 
   <% if @issue.safe_attribute? 'description' %>
-    <%= content_tag :p, :style => (@issue.persisted? ? 'display: none;' : nil) do %>
+    <%= content_tag :p, :style => (@issue.persisted? ? 'display: none;' : nil), :class => 'no-label' do %>
       <%= f.text_area :description,
                       :no_label => true,
                       :cols => 80,
