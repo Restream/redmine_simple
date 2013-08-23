@@ -65,12 +65,12 @@ ul.select2-results {
   max-height: 400px;
 }
 
-select {
+select:not([multiple='multiple']) {
   -webkit-padding-end: 22px;
   -webkit-padding-start: 8px;
 }
 
-select {
+select:not([multiple='multiple']) {
   -webkit-appearance: button;
   -webkit-border-radius: 4px;
   -webkit-user-select: none;
@@ -99,7 +99,7 @@ select {
 }
 
 @-moz-document url-prefix() {
-  select {
+  select:not([multiple='multiple']) {
     -webkit-appearance: none;
     -moz-appearance: none;
     text-indent: 1px;
