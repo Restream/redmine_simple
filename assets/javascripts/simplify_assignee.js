@@ -3,10 +3,6 @@ function simplifyAssignee() {
 
   if ($(selectId).length == 0 ) return;
 
-  var clearAssignee = function() {
-    $(selectId).select2("data", { id: "", text: "" });
-  };
-
   var initialData = $(selectId).data("initial");
 
   var simpleMode = $(selectId).parents(".simple-box").length > 0;
@@ -35,9 +31,9 @@ function simplifyAssignee() {
       text: $(selectId).data("text")
     })
     .on("change", function(e) {
-      var assignee = $(this).select2("data");
+      var assignee = e.added;
       if (assignee && assignee.non_member == true) {
-        clearAssignee();
+        $(selectId).select2("data", e.removed);
         showNewMemberModal({
           memberId: assignee.id,
           memberName: assignee.text,
