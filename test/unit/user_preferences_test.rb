@@ -11,18 +11,18 @@ class UserPreferencesTest < ActiveSupport::TestCase
     @user.pref.simplify = true
     @user.pref.save!
     user = find_user
-    assert_true user.pref.simplify?
+    assert_equal true, user.pref.simplify?
   end
 
   def test_simplify_clear
     @user.pref.simplify = false
     @user.pref.save!
     user = find_user
-    assert_false user.pref.simplify?
+    assert_equal false, user.pref.simplify?
   end
 
   def test_simplify_by_default_false
-    assert_false @user.pref.simplify?
+    assert_equal false, @user.pref.simplify?
   end
 
   def find_user

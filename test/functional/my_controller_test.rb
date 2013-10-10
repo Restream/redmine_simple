@@ -25,7 +25,7 @@ class MyControllerTest < ActionController::TestCase
          }
     assert_redirected_to '/my/account'
     user = User.find(2)
-    assert_true user.pref.simplify?
+    assert_equal true, user.pref.simplify?
   end
 
   def test_show_simplify_checkbox

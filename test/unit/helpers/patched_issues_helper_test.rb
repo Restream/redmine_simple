@@ -44,105 +44,24 @@ class PatchedIssuesHelperTest < ActionView::TestCase
   def test_assignee_for_select
     user = User.find(1)
     User.current = user
-
     data = assignee_for_select(@issue)
-    expected_data = { :more => false,
-                      :results =>
-                          [{ :email => "admin@somenet.foo",
-                             :id => 1,
-                             :login => "admin",
-                             :name => "redMine Admin",
-                             :text => "<< me >>" },
-                           {:email => "jsmith@somenet.foo",
-                            :id => 2,
-                            :login => "jsmith",
-                            :name => "John Smith",
-                            :text => "<< Author >>"},
-                           { :email => "dlopper@somenet.foo",
-                             :id => 3,
-                             :login => "dlopper",
-                             :text => "Dave Lopper" },
-                           { :email => "jsmith@somenet.foo",
-                             :id => 2,
-                             :login => "jsmith",
-                             :text => "John Smith" },
-                           { :children =>
-                                 [{ :email => "admin@somenet.foo",
-                                    :id => 1,
-                                    :login => "admin",
-                                    :non_member => true,
-                                    :text => "redMine Admin" },
-                                  { :email => "rhill@somenet.foo",
-                                    :id => 4,
-                                    :login => "rhill",
-                                    :non_member => true,
-                                    :text => "Robert Hill" },
-                                  { :email => "someone@foo.bar",
-                                    :id => 7,
-                                    :login => "someone",
-                                    :non_member => true,
-                                    :text => "Some One" },
-                                  { :email => "miscuser8@foo.bar",
-                                    :id => 8,
-                                    :login => "miscuser8",
-                                    :non_member => true,
-                                    :text => "User Misc" },
-                                  { :email => "miscuser9@foo.bar",
-                                    :id => 9,
-                                    :login => "miscuser9",
-                                    :non_member => true,
-                                    :text => "User Misc" }],
-                             :text => "Non member" }] }
-    assert_equal expected_data, data
+    assignees = extract_tree_of_ids_from_array(data[:results])
+    assert_equal '1,2,2,3,[1,4,7,8,9]', assignees
   end
 
   def test_watchers_for_select
     user = User.find(1)
     User.current = user
-
     data = watchers_for_select(@issue)
-    expected_data = { :more => false,
-                      :results =>
-                          [{ :email => "admin@somenet.foo",
-                             :id => 1,
-                             :login => "admin",
-                             :name => "redMine Admin",
-                             :text => "<< me >>" },
-                           { :email => "dlopper@somenet.foo",
-                             :id => 3,
-                             :login => "dlopper",
-                             :text => "Dave Lopper" },
-                           { :email => "jsmith@somenet.foo",
-                             :id => 2,
-                             :login => "jsmith",
-                             :text => "John Smith" },
-                           { :children =>
-                                 [{ :email => "admin@somenet.foo",
-                                    :id => 1,
-                                    :login => "admin",
-                                    :non_member => true,
-                                    :text => "redMine Admin" },
-                                  { :email => "rhill@somenet.foo",
-                                    :id => 4,
-                                    :login => "rhill",
-                                    :non_member => true,
-                                    :text => "Robert Hill" },
-                                  { :email => "someone@foo.bar",
-                                    :id => 7,
-                                    :login => "someone",
-                                    :non_member => true,
-                                    :text => "Some One" },
-                                  { :email => "miscuser8@foo.bar",
-                                    :id => 8,
-                                    :login => "miscuser8",
-                                    :non_member => true,
-                                    :text => "User Misc" },
-                                  { :email => "miscuser9@foo.bar",
-                                    :id => 9,
-                                    :login => "miscuser9",
-                                    :non_member => true,
-                                    :text => "User Misc" }],
-                             :text => "Non member" }] }
-    assert_equal expected_data, data
+    watchers = extract_tree_of_ids_from_array(data[:results])
+    assert_equal '1,2,3,[1,4,7,8,9]', watchers
+  end
+
+  def extract_tree_of_ids_from_array(arr)
+    arr.map do |e|
+      e.has_key?(:children) ?
+          "[#{extract_tree_of_ids_from_array(e[:children])}]" :
+          e[:id].to_s
+    end.sort.join(',')
   end
 end
