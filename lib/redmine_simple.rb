@@ -35,3 +35,8 @@ require 'redmine_simple/patches/issues_controller_patch'
 
 #hooks
 require 'redmine_simple/hooks/view_hooks'
+
+if Rails.env == 'test'
+  # This plugin change redmine functionality so tests should be changed too
+  require 'redmine_simple/patches/issues_controller_test_patch'
+end
