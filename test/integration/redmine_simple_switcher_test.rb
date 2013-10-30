@@ -19,45 +19,38 @@ class RedmineSimpleSwitcherTest < ActionController::IntegrationTest
 
   def test_simplify_on?
     RedmineSimple.depend_on_user
-    user_simplify_on
+    simplify_on!(@user)
     get "/projects/#{@project.to_param}/issues/new"
     assert_response :success
     assert_equal true, RedmineSimple.on?
+    assert_tag :div, :attributes => { :class => 'simple-hidden' }
   end
 
   def test_simplify_off?
     RedmineSimple.depend_on_user
-    user_simplify_off
+    simplify_off!(@user)
     get "/projects/#{@project.to_param}/issues/new"
     assert_response :success
     assert_equal false, RedmineSimple.on?
+    assert_no_tag :div, :attributes => { :class => 'simple-hidden' }
   end
 
   def test_simplify_disabled
     RedmineSimple.depend_on_user
-    user_simplify_on
+    simplify_on!(@user)
     get "/projects/#{@project.to_param}/issues/new?simplify=off"
     assert_response :success
     assert_equal false, RedmineSimple.on?
+    assert_no_tag :div, :attributes => { :class => 'simple-hidden' }
   end
 
   def test_simplify_enabled
     RedmineSimple.depend_on_user
-    user_simplify_off
+    simplify_off!(@user)
     get "/projects/#{@project.to_param}/issues/new?simplify=on"
     assert_response :success
     assert_equal true, RedmineSimple.on?
+    assert_tag :div, :attributes => { :class => 'simple-hidden' }
   end
 
-  private
-
-  def user_simplify_on
-    @user.pref.simplify = true
-    @user.pref.save!
-  end
-
-  def user_simplify_off
-    @user.pref.simplify = false
-    @user.pref.save!
-  end
 end

@@ -37,4 +37,20 @@ class IssuesControllerTest < ActionController::TestCase
     get :new, :project_id => @project.id
     assert_response :success
   end
+
+  def test_update_form_simplify_on
+    simplify_off!(@user)
+    post :update_form, :project_id => @project.id, :format => 'js', :simplify => 'on'
+    assert_response :success
+    assert_equal true, RedmineSimple.on?
+    assert_match /simple-hidden/, @response.body
+  end
+
+  def test_update_form_simplify_off
+    simplify_on!(@user)
+    post :update_form, :project_id => @project.id, :format => 'js', :simplify => 'off'
+    assert_response :success
+    assert_equal false, RedmineSimple.on?
+    assert_no_match /simple-hidden/, @response.body
+  end
 end
