@@ -26,7 +26,7 @@ Editing issue:
 
 Adding new member to project:
 
-![New member](https://github.com/nodecarter/redmine_simple/raw/master/1j.png)
+![New member](https://raw.github.com/Undev/redmine_simple/master/1j.png)
 
 ## Install
 
