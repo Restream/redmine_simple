@@ -9,26 +9,24 @@ class RedmineSimpleTest < ActiveSupport::TestCase
   end
 
   def test_simplify_on?
-    RedmineSimple.depend_on_user
     @user.pref.stubs(:simplify?).returns(true)
     assert_equal true, RedmineSimple.on?
   end
 
   def test_simplify_off?
-    RedmineSimple.depend_on_user
     @user.pref.stubs(:simplify?).returns(false)
     assert_equal false, RedmineSimple.on?
   end
 
   def test_disabling_simplify
     RedmineSimple.disable
-    @user.pref.stubs(:simplify?).returns(true)
+    assert_equal false, @user.pref.simplify?
     assert_equal false, RedmineSimple.on?
   end
 
   def test_enabling_simplify
     RedmineSimple.enable
-    @user.pref.stubs(:simplify?).returns(false)
+    assert_equal true, @user.pref.simplify?
     assert_equal true, RedmineSimple.on?
   end
 end

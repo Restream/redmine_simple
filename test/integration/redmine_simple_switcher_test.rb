@@ -18,7 +18,6 @@ class RedmineSimpleSwitcherTest < ActionController::IntegrationTest
   end
 
   def test_simplify_on?
-    RedmineSimple.depend_on_user
     simplify_on!(@user)
     get "/projects/#{@project.to_param}/issues/new"
     assert_response :success
@@ -27,7 +26,6 @@ class RedmineSimpleSwitcherTest < ActionController::IntegrationTest
   end
 
   def test_simplify_off?
-    RedmineSimple.depend_on_user
     simplify_off!(@user)
     get "/projects/#{@project.to_param}/issues/new"
     assert_response :success
@@ -36,7 +34,6 @@ class RedmineSimpleSwitcherTest < ActionController::IntegrationTest
   end
 
   def test_simplify_disabled
-    RedmineSimple.depend_on_user
     simplify_on!(@user)
     get "/projects/#{@project.to_param}/issues/new?simplify=off"
     assert_response :success
@@ -45,7 +42,6 @@ class RedmineSimpleSwitcherTest < ActionController::IntegrationTest
   end
 
   def test_simplify_enabled
-    RedmineSimple.depend_on_user
     simplify_off!(@user)
     get "/projects/#{@project.to_param}/issues/new?simplify=on"
     assert_response :success

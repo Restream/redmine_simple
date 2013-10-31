@@ -1,25 +1,19 @@
 require 'singleton'
 class RedmineSimple
-  include Singleton
+  class << self
+    def on?(user = User.current)
+      user.pref.simplify?
+    end
 
-  %w{on? depend_on_user enable disable}.each do |meth|
-    define_singleton_method(meth.to_sym) { |*args| instance.send meth.to_sym, *args  }
-  end
+    def enable(user = User.current)
+      user.pref.simplify = true
+      user.pref.save
+    end
 
-  def on?(user = User.current)
-    @direct_switch.nil? ? user.pref.simplify? : @direct_switch
-  end
-
-  def depend_on_user
-    @direct_switch = nil
-  end
-
-  def enable
-    @direct_switch = true
-  end
-
-  def disable
-    @direct_switch = false
+    def disable(user = User.current)
+      user.pref.simplify = false
+      user.pref.save
+    end
   end
 end
 
