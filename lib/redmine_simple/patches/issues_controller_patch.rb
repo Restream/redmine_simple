@@ -9,6 +9,7 @@ module RedmineSimple::Patches
       before_filter :get_notes_from_params,
                     :only => [:new],
                     :if => -> { RedmineSimple.on? && request.xhr? }
+      before_filter :enable_deface_for_html_only, :only => [:show]
     end
 
     protected
@@ -17,6 +18,10 @@ module RedmineSimple::Patches
       @notes = params[:issue] && params[:issue][:notes]
     end
 
+
+    def enable_deface_for_html_only
+      Rails.application.config.deface.enabled = request.format.html?
+    end
   end
 end
 
