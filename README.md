@@ -30,4 +30,6 @@ Adding new member to project:
 
 ## Install
 
+This plugin requires other plugin - https://github.com/Undev/redmine__select2
+
 Follow the plugin installation procedure at http://www.redmine.org/wiki/redmine/Plugins.
