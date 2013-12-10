@@ -16,7 +16,7 @@ module RedmineSimple::Patches
       raise ArgumentError('allowed only on|off values') unless simplify =~ /^on|off$/
       link_class = "simplify-#{simplify}"
       link_to l("text_simplify_#{simplify}"),
-              new_project_issue_path(project.to_param),
+              switch_simple_mode_for_new_path(project.to_param),
               { :class => link_class }
     end
 
@@ -86,7 +86,7 @@ module RedmineSimple::Patches
       # me, members + non_members
       data = { :more => false, :results => [] }
 
-      member_ids = issue.project.users.pluck(:user_id)
+      member_ids = issue.project.users.pluck(:user_id).map(&:to_i)
       members, non_members =
           User.active.sort.partition { |u| member_ids.include?(u.id) }
 

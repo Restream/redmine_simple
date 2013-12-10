@@ -10,6 +10,5 @@ Deface::Override.new(
 <% else %>
   <%= render :partial => 'edit' %>
 <% end %>
-<%= render :partial => 'simple/issues/includes' %>
 INCLUDES
 )

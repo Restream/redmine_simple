@@ -1,8 +1,7 @@
 function reloadIssueFrom(url) {
   var form = $('#issue-form');
   form.attr('action', url);
-  form.attr('method', 'GET');
-  form.find('input[name=authenticity_token]').remove();
+  form.attr('method', 'POST');
   form.trigger('submit');
 }
 
