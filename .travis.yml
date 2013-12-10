@@ -52,4 +52,3 @@ before_script:
 
 script:
   - rake redmine:plugins:test NAME=$PLUGIN_NAME
-  - rake test
