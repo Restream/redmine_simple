@@ -22,7 +22,7 @@ class PatchedIssuesHelperTest < ActionView::TestCase
     super
     set_language_if_valid('en')
     @project = Project.find(1)
-    @issue = @project.issues.first
+    @issue = @project.issues.find(1)
   end
 
   def test_link_to_new_issue_simplify_on
