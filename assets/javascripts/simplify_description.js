@@ -12,6 +12,6 @@ function adaptiveHeight(a, min, max) {
 $(document).ready(function() {
   var text_areas = '#issue_description,#issue_notes';
   $(text_areas).each(function() {
-    adaptiveHeight(this, 150, 400);
+    adaptiveHeight(this, 200, 400);
   })
 });
