@@ -17,6 +17,7 @@ class PatchedIssuesHelperTest < ActionView::TestCase
 
   include ApplicationHelper
   include IssuesHelper
+  include RedmineSimpleHelper
 
   def setup
     super
