@@ -5,8 +5,8 @@ services:
   - postgresql
 
 rvm:
-  - 1.9.3-p484
-  - 2.0.0-p353
+  - 1.9.3
+  - 2.0.0
 
 gemfile:
   - $REDMINE_PATH/Gemfile
@@ -23,16 +23,16 @@ env:
 
 matrix:
   exclude:
-    - rvm: 2.0.0-p353
+    - rvm: 2.0.0
       env: REDMINE_VER=2.1.6 DB=mysql
       gemfile: $REDMINE_PATH/Gemfile
-    - rvm: 2.0.0-p353
+    - rvm: 2.0.0
       env: REDMINE_VER=2.2.4 DB=mysql
       gemfile: $REDMINE_PATH/Gemfile
-    - rvm: 2.0.0-p353
+    - rvm: 2.0.0
       env: REDMINE_VER=2.1.6 DB=postgresql
       gemfile: $REDMINE_PATH/Gemfile
-    - rvm: 2.0.0-p353
+    - rvm: 2.0.0
       env: REDMINE_VER=2.2.4 DB=postgresql
       gemfile: $REDMINE_PATH/Gemfile
 

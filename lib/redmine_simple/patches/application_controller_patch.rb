@@ -6,6 +6,7 @@ module RedmineSimple::Patches
 
     included do
       before_filter :update_simplify_from_params
+      before_filter :include_redmine_simple_helper
     end
 
     protected
@@ -14,6 +15,14 @@ module RedmineSimple::Patches
       prm = params.delete('simplify')
       unless prm.nil?
         prm == 'on' ? RedmineSimple.enable : RedmineSimple.disable
+      end
+      true
+    end
+
+    # A way to make plugin helpers available in all views
+    def include_redmine_simple_helper
+      unless _helpers.included_modules.include? RedmineSimpleHelper
+        self.class.helper RedmineSimpleHelper
       end
       true
     end
