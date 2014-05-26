@@ -1,6 +1,6 @@
 <p>
   <label><%= l(:label_issue_watchers) %></label>
   <%= f.hidden_field :select2_watcher_user_ids, :data => {
-      :initial => watchers_for_select(issue),
+      :initial => watchers_for_select(@issue),
       :selected => @issue.watcher_users.map { |u| { :id => u.id, :text => u.name } } } %>
 </p>
