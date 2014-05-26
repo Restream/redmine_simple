@@ -117,18 +117,4 @@ module RedmineSimpleHelper
         :email => user.mail
     }.merge(options)
   end
-
-  def assignee_hidden_field(f, issue)
-    f.hidden_field :assigned_to_id, :data => {
-        :initial => assignee_for_select(issue),
-        :text => issue.assigned_to.try(:name).to_s }
-  end
-
-  def watchers_hidden_field(f, issue)
-    f.hidden_field :select2_watcher_user_ids, :data => {
-        :initial => watchers_for_select(issue),
-        :selected => issue.watcher_users.map { |u| { :id => u.id,
-                                                     :text => u.name } }
-    }
-  end
 end

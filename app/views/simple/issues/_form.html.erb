@@ -18,7 +18,9 @@
   <% if @issue.safe_attribute? 'assigned_to_id' %>
     <p>
       <label><%= l(:field_assigned_to) %></label>
-      <%= assignee_hidden_field(f, @issue) %>
+      <%= f.hidden_field :assigned_to_id, :data => {
+          :initial => assignee_for_select(@issue),
+          :text => @issue.assigned_to.try(:name).to_s } %>
     </p>
   <% end %>
 
