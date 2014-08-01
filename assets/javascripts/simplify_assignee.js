@@ -7,7 +7,22 @@ function simplifyAssignee() {
 
   var simpleMode = $(selectId).parents(".simple-box").length > 0;
 
-  var assigneeWidth = simpleMode ? '20%' : '60%';
+  var selectWidth = "60%";
+  // try to determine actual width of select
+  try {
+    var
+      selectCtrl = $("#issue-form #attributes select").first()[0],
+      selectCtrlContainer = $(selectId).parent()[0],
+      sWidth = window.getComputedStyle(selectCtrl).width,
+      cWidth = window.getComputedStyle(selectCtrlContainer).width,
+      percentWidth = Math.round(100 * parseFloat(sWidth) / parseFloat(cWidth));
+
+    if (percentWidth > 0) {
+      selectWidth = percentWidth + "%";
+    }
+  } catch (e) { }
+
+  var assigneeWidth = simpleMode ? "20%" : selectWidth;
 
   $(selectId)
     .select2({
