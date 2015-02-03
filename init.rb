@@ -8,9 +8,9 @@ ActionDispatch::Callbacks.to_prepare do
 end
 
 Redmine::Plugin.register :redmine_simple do
-  name        'RedmineSimple plugin'
-  description 'Simplify redmine interface'
-  author      'Danil Tashkinov'
+  name        'Redmine Simple plugin'
+  description 'This plugin provides a simplified Redmine interface.'
+  author      'Undev'
   version     '1.1.5'
   url         'https://github.com/Undev/redmine_simple'
 

@@ -5,6 +5,10 @@
 
 This plugin adds a simple issue form to Redmine. It replaces a standard **Select** control with **Select2** (in the **Assignee** and **Watchers** fields), which allows you to search assignees and watchers by name, letters in name and surname, email or login. The plugin also simplifies the process of adding a new member to a project, which can be done directly when selecting an assignee.
 
+## Compatibility
+
+This plugin version is compatible only with Redmine 2.1.x and later.
+
 ## Installation
 
 *These installation instructions are based on Redmine 2.x. For instructions for Redmine 1.x, see [Redmine wiki](http://www.redmine.org/projects/redmine/wiki/Plugins).*
@@ -37,7 +41,7 @@ This plugin requires Redmine Select2 Plugin to be installed.
 ## Usage
 
 When you create or edit an issue, this plugin allows you to switch between a simple and a standard issue form by clicking the **Show simple interface** / **Show full interface** in the lower-right corner.  
-![standard form](simple_1.PNG)
+![standard form](simple_1.PNG)  
 ![simple form](simple_2.PNG)
 
 The plugin changes the visual appearance of the **Assignee** and **Watchers** selectors.  
