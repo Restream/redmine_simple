@@ -11,8 +11,6 @@ This plugin version is compatible only with Redmine 2.1.x and later.
 
 ## Installation
 
-*These installation instructions are based on Redmine 2.x. For instructions for Redmine 1.x, see [Redmine wiki](http://www.redmine.org/projects/redmine/wiki/Plugins).*
-
 This plugin requires Redmine Select2 Plugin to be installed. 
 
 1. To install the plugins
