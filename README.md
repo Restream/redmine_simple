@@ -27,7 +27,11 @@ This plugin requires Redmine Select2 Plugin to be installed.
             git clone https://github.com/Undev/redmine__select2 plugins/redmine__select2
             git clone https://github.com/Undev/redmine_simple.git plugins/redmine_simple
             
-2. Update the Gemfile.lock file, the local package index and install the dependencies:  
+2. Install the required gems using the command:  
+
+        bundle install  
+
+    * In case of bundle install errors, remove the Gemfile.lock file, update the local package index and install the required dependencies. Then execute the bundle install command again:  
 
             rm Gemfile.lock
             sudo apt-get update
