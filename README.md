@@ -31,7 +31,7 @@ This plugin requires Redmine Select2 Plugin to be installed.
 
         bundle install  
 
-    * In case of bundle install errors, remove the Gemfile.lock file, update the local package index and install the required dependencies. Then execute the bundle install command again:  
+    * In case of bundle install errors, remove the Gemfile.lock file, update the local package index and install the required dependencies. Then execute the `bundle install` command again:  
 
             rm Gemfile.lock
             sudo apt-get update
