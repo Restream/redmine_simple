@@ -59,6 +59,10 @@ You can search users in the **Assignee** and **Watchers** fields by name, letter
 If you select an assignee who is not a project member yet, you can add this user to the list of project members directly from the issue form by checking the appropriate roles.  
 ![add new member](simple_4.PNG)
 
+## Maintainers
+
+Danil Tashkinov, [github.com/nodecarter](https://github.com/nodecarter)
+
 ## License
 
 Copyright (c) 2015 Undev
