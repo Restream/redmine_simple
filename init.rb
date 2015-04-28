@@ -11,7 +11,7 @@ Redmine::Plugin.register :redmine_simple do
   name        'Redmine Simple plugin'
   description 'This plugin provides a simplified Redmine interface.'
   author      'Undev'
-  version     '1.1.6'
+  version     '1.1.7'
   url         'https://github.com/Undev/redmine_simple'
 
   requires_redmine :version_or_higher => '2.1'
