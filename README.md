@@ -1,35 +1,80 @@
-# RedmineSimple plugin for redmine
+# Redmine Simple Plugin
 
 [![Build Status](https://travis-ci.org/Undev/redmine_simple.png)](https://travis-ci.org/Undev/redmine_simple)
 [![Code Climate](https://codeclimate.com/github/Undev/redmine_simple.png)](https://codeclimate.com/github/Undev/redmine_simple)
 
-This plugin add simple issue form. You can switch between simple and standard forms.
-Also this plugin replace standard select to select2 control.
-This replacement allows you to search assignee by:
+This plugin adds a simple issue form to Redmine. It replaces a standard **Select** control with **Select2** (in the **Assignee** and **Watchers** fields), which allows you to search assignees and watchers by name, letters in name and surname, email or login. The plugin also simplifies the process of adding a new member to a project, which can be done directly when selecting an assignee.
 
-* name,
-* first letters of name and surname
-* email
-* login
+## Compatibility
 
-If you choose a user that is not member of project, then you can add this user to project simply by checking appropriate roles.
+This plugin version is compatible only with Redmine 2.1.x and later.
 
-## Screenshots
+## Installation
 
-Creating issue:
+This plugin requires Redmine Select2 Plugin to be installed. 
 
-![new issue](https://github.com/Undev/redmine_simple/raw/master/1i.png)
+1. To install the plugins
+    * Download the .ZIP archives, extract files and copy the plugin directories into #{REDMINE_ROOT}/plugins.
+    
+    Or
 
-Editing issue:
+    * Change you current directory to your Redmine root directory:  
 
-![edit issue](https://github.com/Undev/redmine_simple/raw/master/1k.png)
+            cd {REDMINE_ROOT}
+            
+      Copy the plugins from GitHub using the following commands:
+      
+            git clone https://github.com/Undev/redmine__select2.git plugins/redmine__select2
+            git clone https://github.com/Undev/redmine_simple.git plugins/redmine_simple
+            
+2. Install the required gems using the command:  
 
-Adding new member to project:
+        bundle install  
 
-![New member](https://raw.github.com/Undev/redmine_simple/master/1j.png)
+    * In case of bundle install errors, remove the Gemfile.lock file, update the local package index and install the required dependencies. Then execute the `bundle install` command again:  
 
-## Install
+            rm Gemfile.lock
+            sudo apt-get update
+            sudo apt-get install -y libxml2-dev libxslt-dev libpq-dev
+            bundle install
 
-This plugin requires other plugin - https://github.com/Undev/redmine__select2
+3. Restart Redmine.
 
-Follow the plugin installation procedure at http://www.redmine.org/wiki/redmine/Plugins.
+Now you should be able to see the plugins in **Administration > Plugins**.
+
+## Usage
+
+When you create or edit an issue, this plugin allows you to switch between a simple and a standard issue form by clicking the **Show simple interface** / **Show full interface** in the lower-right corner.  
+![standard form](simple_1.PNG)  
+![simple form](simple_2.PNG)
+
+The plugin changes the visual appearance of the **Assignee** and **Watchers** selectors.  
+![selector](simple_3.PNG)
+
+You can search users in the **Assignee** and **Watchers** fields by name, letters in name and surname, email or login.
+![search](simple_5.PNG)
+![search](simple_6.PNG)
+![search](simple_7.PNG)
+
+If you select an assignee who is not a project member yet, you can add this user to the list of project members directly from the issue form by checking the appropriate roles.  
+![add new member](simple_4.PNG)
+
+## Maintainers
+
+Danil Tashkinov, [github.com/nodecarter](https://github.com/nodecarter)
+
+## License
+
+Copyright (c) 2015 Undev
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
