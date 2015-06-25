@@ -44,7 +44,7 @@ Now you should be able to see the plugins in **Administration > Plugins**.
 
 ## Usage
 
-When you create or edit an issue, this plugin allows you to switch between a simple and a standard issue form by clicking the **Show simple interface** / **Show full interface** in the lower-right corner.  
+When you create or edit an issue, this plugin allows you to switch between a simple and a standard issue form by clicking the **Show simple interface** / **Show full interface** link in the lower-right corner.  
 ![standard form](simple_1.PNG)  
 ![simple form](simple_2.PNG)
 
