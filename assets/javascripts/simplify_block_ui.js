@@ -26,3 +26,11 @@ updateIssueFrom = function(url) {
   issueFormBlocker.enable();
   origUpdateIssueFrom(url);
 };
+
+// Just redraw select2
+var origReplaceIssueFormWith = replaceIssueFormWith;
+replaceIssueFormWith = function(url) {
+  origReplaceIssueFormWith(url);
+  simplifyAssignee();
+  simplifyWatchers();
+};

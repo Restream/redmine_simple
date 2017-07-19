@@ -19,8 +19,9 @@ function simplifyWatchers() {
             results: filtered_data
           });
         }
-      }
-    }).select2("data", jql(selectId).data("selected"));
+      },
+      data: initialData.results
+    });
 
   jql(selectId).parent('p').addClass('select2-field');
 }
