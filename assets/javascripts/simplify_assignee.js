@@ -1,18 +1,18 @@
 function simplifyAssignee() {
   var selectId = "#issue_assigned_to_id";
 
-  if ($(selectId).length == 0 ) return;
+  if (jql(selectId).length == 0 ) return;
 
-  var initialData = $(selectId).data("initial");
+  var initialData = jql(selectId).data("initial");
 
-  var simpleMode = $(selectId).parents(".simple-box").length > 0;
+  var simpleMode = jql(selectId).parents(".simple-box").length > 0;
 
   var selectWidth = "60%";
   // try to determine actual width of select
   try {
     var
-      selectCtrl = $("#issue-form #attributes select").first()[0],
-      selectCtrlContainer = $(selectId).parent()[0],
+      selectCtrl = jql("#issue-form #attributes select").first()[0],
+      selectCtrlContainer = jql(selectId).parent()[0],
       sWidth = window.getComputedStyle(selectCtrl).width,
       cWidth = window.getComputedStyle(selectCtrlContainer).width,
       percentWidth = Math.round(100 * parseFloat(sWidth) / parseFloat(cWidth));
@@ -24,7 +24,7 @@ function simplifyAssignee() {
 
   var assigneeWidth = simpleMode ? "20%" : selectWidth;
 
-  $(selectId)
+  jql(selectId)
     .select2({
       width: assigneeWidth,
       allowClear: true,
@@ -39,29 +39,26 @@ function simplifyAssignee() {
             results: filtered_data
           });
         }
-      }
-    })
-    .select2("data", {
-      id: $(selectId).val(),
-      text: $(selectId).data("text")
+      },
+      data: jql(selectId).data("initial").results
     })
     .on("change", function(e) {
       var assignee = e.added;
       if (assignee && assignee.non_member == true) {
-        $(selectId).select2("data", e.removed);
+        jql(selectId).select2("data", e.removed);
         showNewMemberModal({
           memberId: assignee.id,
           memberName: assignee.text,
           success: function() {
-            $(selectId).select2("data", assignee);
+            jql(selectId).select2("data", assignee);
           }
         });
       }
     });
 
-  $(selectId).parent('p').addClass('select2-field');
+  jql(selectId).parent('p').addClass('select2-field');
 }
 
-$(document).ready(function() {
+jql(document).ready(function() {
   simplifyAssignee();
 });

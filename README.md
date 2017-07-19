@@ -1,13 +1,12 @@
 # Redmine Simple Plugin
 
-[![Build Status](https://travis-ci.org/Undev/redmine_simple.png)](https://travis-ci.org/Undev/redmine_simple)
-[![Code Climate](https://codeclimate.com/github/Undev/redmine_simple.png)](https://codeclimate.com/github/Undev/redmine_simple)
+[![Build Status](https://travis-ci.org/Restream/redmine_simple.svg?branch=master)](https://travis-ci.org/Restream/redmine_simple)
 
 This plugin adds a simple issue form to Redmine. It replaces a standard **Select** control with **Select2** (in the **Assignee** and **Watchers** fields), which allows you to search assignees and watchers by name, letters in name and surname, email or login. The plugin also simplifies the process of adding a new member to a project, which can be done directly when selecting an assignee.
 
 ## Compatibility
 
-This plugin version is compatible only with Redmine 2.1.x and later.
+This plugin version is compatible only with Redmine 3.x.x and later.
 
 ## Installation
 
@@ -24,8 +23,8 @@ This plugin requires Redmine Select2 Plugin to be installed.
             
       Copy the plugins from GitHub using the following commands:
       
-            git clone https://github.com/Undev/redmine__select2.git plugins/redmine__select2
-            git clone https://github.com/Undev/redmine_simple.git plugins/redmine_simple
+            git clone https://github.com/Restream/redmine__select2.git plugins/redmine__select2
+            git clone https://github.com/Restream/redmine_simple.git plugins/redmine_simple
             
 2. Install the required gems using the command:  
 
@@ -45,19 +44,19 @@ Now you should be able to see the plugins in **Administration > Plugins**.
 ## Usage
 
 When you create or edit an issue, this plugin allows you to switch between a simple and a standard issue form by clicking the **Show simple interface** / **Show full interface** in the lower-right corner.  
-![standard form](simple_1.PNG)  
-![simple form](simple_2.PNG)
+![standard form](doc/simple_1.PNG)  
+![simple form](doc/simple_2.PNG)
 
 The plugin changes the visual appearance of the **Assignee** and **Watchers** selectors.  
-![selector](simple_3.PNG)
+![selector](doc/simple_3.PNG)
 
 You can search users in the **Assignee** and **Watchers** fields by name, letters in name and surname, email or login.
-![search](simple_5.PNG)
-![search](simple_6.PNG)
-![search](simple_7.PNG)
+![search](doc/simple_5.PNG)
+![search](doc/simple_6.PNG)
+![search](doc/simple_7.PNG)
 
 If you select an assignee who is not a project member yet, you can add this user to the list of project members directly from the issue form by checking the appropriate roles.  
-![add new member](simple_4.PNG)
+![add new member](doc/simple_4.PNG)
 
 ## Maintainers
 
@@ -65,7 +64,7 @@ Danil Tashkinov, [github.com/nodecarter](https://github.com/nodecarter)
 
 ## License
 
-Copyright (c) 2015 Undev
+Copyright (c) 2017 Restream
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

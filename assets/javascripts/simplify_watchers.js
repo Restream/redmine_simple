@@ -1,11 +1,11 @@
 function simplifyWatchers() {
   var selectId = "#issue_select2_watcher_user_ids";
 
-  if ($(selectId).length == 0 ) return;
+  if (jql(selectId).length == 0 ) return;
 
-  var initialData = $(selectId).data("initial");
+  var initialData = jql(selectId).data("initial");
 
-  $(selectId).
+  jql(selectId).
     select2({
       width: "60%",
       multiple: true,
@@ -20,11 +20,11 @@ function simplifyWatchers() {
           });
         }
       }
-    }).select2("data", $(selectId).data("selected"));
+    }).select2("data", jql(selectId).data("selected"));
 
-  $(selectId).parent('p').addClass('select2-field');
+  jql(selectId).parent('p').addClass('select2-field');
 }
 
-$(document).ready(function() {
+jql(document).ready(function() {
   simplifyWatchers();
 });

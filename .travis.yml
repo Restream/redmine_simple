@@ -4,17 +4,15 @@ services:
   - postgresql
 
 rvm:
-  - 2.0.0
+  - 2.3.1
 
 gemfile:
   - $REDMINE_PATH/Gemfile
 
 env:
-  - REDMINE_VER=2.3.4
-  - REDMINE_VER=2.4.7
-  - REDMINE_VER=2.5.3
-  - REDMINE_VER=2.6.5
-  - REDMINE_VER=3.0.3
+  - REDMINE_VER=3.2.7
+  - REDMINE_VER=3.3.4
+  - REDMINE_VER=3.4.2
 
 before_install:
   - export PLUGIN_NAME=redmine_simple
@@ -24,7 +22,7 @@ before_install:
   - ln -s $TRAVIS_BUILD_DIR $REDMINE_PATH/plugins/$PLUGIN_NAME
   - cp config/database-$DB-travis.yml $REDMINE_PATH/config/database.yml
   - cd $REDMINE_PATH
-  - git clone --depth=1 https://github.com/Undev/redmine__select2.git $REDMINE_PATH/plugins/redmine__select2
+  - git clone --depth=1 https://github.com/Restream/redmine__select2.git $REDMINE_PATH/plugins/redmine__select2
 
 before_script:
   - bundle exec rake db:create

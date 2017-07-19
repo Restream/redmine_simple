@@ -39,7 +39,7 @@
     <p>
       <% if @issue.safe_attribute?('status_id') && @allowed_statuses.present? %>
           <%= f.select :status_id, (@allowed_statuses.collect {|p| [p.name, p.id]}), {:required => true},
-                       :onchange => "updateIssueFrom('#{escape_javascript project_issue_form_path(@project, :id => @issue, :format => 'js')}')" %>
+                       :onchange => "updateIssueFrom('#{escape_javascript project_issues_path(@project, :id => @issue, :format => 'js')}')" %>
       <% else %>
           <label><%= l(:field_status) %></label> <%= h(@issue.status.name) %>
       <% end %>

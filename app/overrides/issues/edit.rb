@@ -9,6 +9,6 @@ Deface::Override.new(
 Deface::Override.new(
     :virtual_path => 'issues/edit',
     :name => 'issue_edit_cond_bottom',
-    :surround => "code[erb-silent]:contains('content_for :header_tags')",
-    :closing_selector => "code[erb-silent]:contains('end')",
+    :surround => "erb[silent]:contains('content_for :header_tags')",
+    :closing_selector => "erb[silent]:contains('end')",
     :text => '<%= render_original %><% end %>')

@@ -3,7 +3,7 @@
 Deface::Override.new(
     :virtual_path => 'issues/show',
     :name => 'simplify_issue_edit_partial',
-    :replace => 'code:contains("render :partial => \'edit\'")',
+    :replace => 'erb[loud]:contains("render :partial => \'edit\'")',
     :text => <<-INCLUDES
 <% if RedmineSimple.on? %>
   <%= render :partial => 'simple/issues/edit' %>
